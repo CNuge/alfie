@@ -47,12 +47,13 @@ def main():
 			# full file fasta processing
 			seq_records = seqio.read_fasta(args.file)
 
-			# read in the file, store entries as tuples 
-
 			# once read in generate the kmer data
+			for entry in seq_records:
+				entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'])
 
-			# turn kmer data into numpy array of proper structure (bind 3mer and 6mer, 
-			# and bind rows to make shape) 
+			# turn kmer data into numpy array of proper structure
+			# get the kmer_freqs for each 
+			# kmer_data entry
 
 			# load the model
 
