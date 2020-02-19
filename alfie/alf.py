@@ -7,6 +7,10 @@ command line executable script for processing data with alfie
 
 TODO - build the fasta single batch process, then adapt and repeat for the other 3 situations.
 
+globals 
+- build a dict of the outfile names where the keys are the kingdom numeric classes
+- need the model stored in the program and loaded for the testing.
+
 """
 
 def main():
