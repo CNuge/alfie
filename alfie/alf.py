@@ -23,23 +23,29 @@ def main():
 		"Input can be either fasta or fastq formatfile type inferred from the extension.\n"+\
 		"fasta: '.fasta' or '.fa'\n"+\
 		"fastq: '.fastq' or '.fq'\n")
-	parser.add_argument("-b", "--batch", action = "store_true", 
-		help = "should the input file be processed in batches of 1000 sequences?"+\
-		"Default is False, passing this flag will enable sub batches and decrease"+\
-		"the amount of data stored in ram at one time. tradeoff is slower ")
+	parser.add_argument("-b", "--batch", type = int , default = 0, 
+		help = "should the input file be processed in batches ofsequences?"+\
+		"Default is False, passing an integer indicating the batch size to this flag"+\
+		"will enable sub batches and decrease"+\
+		"the amount of data stored in ram at one time. Tradeoff is slower processing")
 
 	args = parser.parse_args()
 
 	#check if fasta or fastq input
 	ftype = seqio.file_type(args.file)
 
+	# build the output filenames
+	kingdom_outfiles = outfile_dict(args.file)
+
 	if ftype == 'fasta': 
-		if args.batch == True:
+		if args.batch == 0:
 			# batch fasta processing
 
+			
 
 		else:
 			# full file fasta processing
+			seq_records = seqio.read_fasta(args.file)
 
 			# read in the file, store entries as tuples 
 
@@ -58,7 +64,7 @@ def main():
 
 
 	elif ftype == 'fastq':
-		if args.batch == True:
+		if args.batch == 0:
 			# batch fastq processing
 
 		else:
