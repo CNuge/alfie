@@ -9,9 +9,9 @@ class KmerFeatures:
 	All other characters will produce an error.
 
 	The default behaviour is to produce an array of kmer frequencies for the
-	kmer sizes 6 and 3
-	Frequencies are internal to the kmer counts, i.e. the array will sum to 2,
-	and the 6mer and 3mer portions of the array both sum to 1
+	kmer size 4.
+	Kmer frequencies are relative to one another, i.e. the array will sum to 1.
+	You can obtain a df with multiple kmers by passing a list: [6,3]
 
 	usage:
 	#initiate a class instance
@@ -19,13 +19,13 @@ class KmerFeatures:
 	ex_inst = KmerFeatures(name = 'ID1',sequence = 'AAATTTGGGATGGGCCCCACAC')
 
 	#obtain the kmer names
-	ex_inst.labels #numpy array with the 4160 kmer codings
+	ex_inst.labels #numpy array with the kmer codings
 
 	#obtain the kmer frequencies
 	ex_inst.kmer_freqs
 
 	#You can also set kmer counts for a specific value of k
-	ex_inst.get_ks(4) #will build the 4mer dict and populate it
+	ex_inst.get_ks(5) #will build the 5mer dict and populate it
 	
 	#c
 	ex_inst.keys()

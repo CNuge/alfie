@@ -1,6 +1,9 @@
 import argparse
 
 import seqio
+from kmerseq import KmerFeatures
+
+import tensorflow as tf
 
 """
 command line executable script for processing data with alfie
@@ -35,7 +38,10 @@ def main():
 	ftype = seqio.file_type(args.file)
 
 	# build the output filenames
-	kingdom_outfiles = outfile_dict(args.file)
+	kingdom_outfiles = seqio.outfile_dict(args.file)
+
+	# load the tensorflow model
+	model = tf.keras.models.load_model('dnn_alfie/alf_dnn.h5')
 
 	if ftype == 'fasta': 
 		if args.batch == 0:
