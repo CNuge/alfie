@@ -1,4 +1,4 @@
-# alfie <img src="data/alfie.jpeg" height="120", align="right"/>
+# alfie <img src="data/alfie.jpeg" height="120" align="right"/>
 ## alignment free identification of eDNA
 
 ## Work in progress
