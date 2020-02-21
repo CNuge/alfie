@@ -32,6 +32,11 @@ def main():
 		"Default is False, passing an integer indicating the batch size to this flag"+\
 		"will enable sub batches and decrease"+\
 		"the amount of data stored in ram at one time. Tradeoff is slower processing")
+	parser.add_argument("-m", "--model", type = str , default = "4mer", 
+		help = "The neural network used to evaluate sequences. Options 4mer (default) or 6mer "+\
+		"The models use different kmer feqture sizes to classify the input sequences"+\
+		"Testing has shown the 4mer modelto be ~99.5\% accurate. Test show 6mer model is more"+\
+		"accurate (~99.8\% accuracy), but this comes with the tradeoff of increased processing time.")
 
 	args = parser.parse_args()
 	file='../data/example_data.fasta'
@@ -68,6 +73,10 @@ def main():
 			yht_out = model.predict(vals)
 
 			predictions = np.argmax(yht_out, axis = 1)
+
+			for i, entry in enumerate(seq_records):
+				outfile = kingdom_outfiles[predictions[i]]
+				write_fasta(entry, outfile)
 
 			# turn kmer data into numpy array of proper structure
 			# get the kmer_freqs for each 

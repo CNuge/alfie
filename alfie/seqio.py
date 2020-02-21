@@ -97,3 +97,66 @@ def read_fastq(filename):
 				lines = []
 
 	return records
+
+
+
+def write_fasta(entry, filename, append_seq = True):
+	"""
+	Takes a sequence record or list of sequence records. 
+	Sequence record in dictonary format with the keys: 'name', 'sequence'
+	Additional keys are permitted but unused.
+
+	Will write the sequence to file, by default the sequence is appended to exiting entries,
+	passing append_seq = False will overwrite the current data.
+	"""
+	if file_type(filename) != 'fasta':
+		raise ValueError("output file does not have fasta extension.")
+
+	if type(entry) == dict:
+		entry = [entry]
+
+	outstring = ''
+
+	for x in entry:
+		str_x = f">{x['name']}{x['sequence']}\n"
+		outstring+=str_x
+
+	if append_seq = True:
+		mode = "a"
+	else:
+		mode = "w"
+	file = open(filename, mode)
+	file.write(outstring)
+	file.close()
+
+
+def write_fastq(entry, filename, append_seq = True):
+	"""
+	Takes a sequence record or list of sequence records. 
+	Sequence record in dictonary format with the keys: 'name', 'sequence', 'plus', 'quality'
+	Additional keys are permitted but unused.
+
+	Will write the sequence to file, by default the sequence is appended to exiting entries,
+	passing append_seq = False will overwrite the current data.
+	"""
+	if file_type(filename) != 'fastq':
+		raise ValueError("output file does not have fastq extension.")
+
+	if type(entry) == dict:
+		entry = [entry]
+
+	outstring = ''
+
+	for x in entry:
+		str_x = f"@{x['name']}\n{x['sequence']}\n{x['plus']}\n{x['quality']}"
+		outstring+=str_x
+
+	if append_seq = True:
+		mode = "a"
+	else:
+		mode = "w"
+	file = open(filename, mode)
+	file.write(outstring)
+	file.close()
+
+
