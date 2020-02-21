@@ -1,9 +1,3 @@
-"""
-#TODO 
-- need to adapt this so that it will store multiple dataframes of kmers 
-	and also turn them into frequencies
-
-"""
 
 import numpy as np
 
@@ -47,7 +41,7 @@ class KmerFeatures:
 
 	
 	"""
-	def __init__(self, name, sequence, kmers = [6,3,]):
+	def __init__(self, name, sequence, kmers = [4]):
 
 		self.name = name
 		self.kmers = kmers
@@ -139,7 +133,8 @@ class KmerFeatures:
 	def freq_values(self):
 		vals = np.array(self.values())
 		total_count = sum(vals)
-
+		if total_count == 0:
+			return vals
 		return vals/total_count 
 
 	def items(self):
@@ -155,6 +150,3 @@ class KmerFeatures:
 		""" the kmer frequency values """
 
 		return np.array(self.outvals)
-
-
-
