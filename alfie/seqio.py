@@ -121,7 +121,7 @@ def write_fasta(entry, filename, append_seq = True):
 		str_x = f">{x['name']}{x['sequence']}\n"
 		outstring+=str_x
 
-	if append_seq = True:
+	if append_seq == True:
 		mode = "a"
 	else:
 		mode = "w"
@@ -151,10 +151,11 @@ def write_fastq(entry, filename, append_seq = True):
 		str_x = f"@{x['name']}\n{x['sequence']}\n{x['plus']}\n{x['quality']}"
 		outstring+=str_x
 
-	if append_seq = True:
+	if append_seq == True:
 		mode = "a"
 	else:
 		mode = "w"
+
 	file = open(filename, mode)
 	file.write(outstring)
 	file.close()

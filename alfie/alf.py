@@ -64,6 +64,7 @@ def main():
 			seq_records = seqio.read_fasta(args.file)
 			seq_records = seqio.read_fasta(file)
 
+###abstract this part to a function - same for all the situations
 			# once read in generate the kmer data
 			for entry in seq_records:
 				entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'])
@@ -73,10 +74,10 @@ def main():
 			yht_out = model.predict(vals)
 
 			predictions = np.argmax(yht_out, axis = 1)
-
+###
 			for i, entry in enumerate(seq_records):
 				outfile = kingdom_outfiles[predictions[i]]
-				write_fasta(entry, outfile)
+				seqio.write_fasta(entry, outfile)
 
 			# turn kmer data into numpy array of proper structure
 			# get the kmer_freqs for each 
