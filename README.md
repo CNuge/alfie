@@ -1,8 +1,6 @@
 # alfie 
-<figure>
 	<img src="data/alfie.jpeg" height="140" align="right" alt="Alfie">
-	<figcaption>Alfie: he's a good doggo</figcaption>
-</figure>
+	*Alfie: he's a good doggo*
 
 ## alignment free identification of eDNA
 
