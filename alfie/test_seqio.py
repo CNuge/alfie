@@ -64,6 +64,10 @@ class SeqioTests(unittest.TestCase):
 		self.assertEqual(outfile_dict("test.fasta"), 
 						self._expected_kingdom_dict)
 
+		self.assertEqual(outfile_dict("in_data/test.fasta"), 
+				self._expected_kingdom_dict)
+
+
 	def test_fasta_reader(self):
 		self._fasta_read = read_fasta(self._fasta_infile)
 		

@@ -1,9 +1,10 @@
 import argparse
+import numpy as np
+import tensorflow as tf
 
 import seqio
 from kmerseq import KmerFeatures
 
-import tensorflow as tf
 
 """
 command line executable script for processing data with alfie
@@ -33,12 +34,15 @@ def main():
 		"the amount of data stored in ram at one time. Tradeoff is slower processing")
 
 	args = parser.parse_args()
+	file='../data/example_data.fasta'
 
 	#check if fasta or fastq input
 	ftype = seqio.file_type(args.file)
+	ftype = seqio.file_type(file)
 
 	# build the output filenames
 	kingdom_outfiles = seqio.outfile_dict(args.file)
+	kingdom_outfiles = seqio.outfile_dict(file)
 
 	# load the tensorflow model
 	model = tf.keras.models.load_model('dnn_alfie/alf_dnn.h5')
@@ -47,15 +51,23 @@ def main():
 		if args.batch == 0:
 			# batch fasta processing
 
+			#make a generator function version of the read_fasta and read_fastq
 			
 
 		else:
 			# full file fasta processing
 			seq_records = seqio.read_fasta(args.file)
+			seq_records = seqio.read_fasta(file)
 
 			# once read in generate the kmer data
 			for entry in seq_records:
 				entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'])
+
+			vals = np.array([seq_records[i]['kmer_data'].kmer_freqs for i in range(len(seq_records))])
+			
+			yht_out = model.predict(vals)
+
+			predictions = np.argmax(yht_out, axis = 1)
 
 			# turn kmer data into numpy array of proper structure
 			# get the kmer_freqs for each 

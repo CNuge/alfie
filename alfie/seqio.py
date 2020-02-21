@@ -25,6 +25,7 @@ def outfile_dict(filename):
 	build a dictonary with the output filenames.
 	dict keys are the numeric encodings of the kingdom names
 	"""
+	f_stripped = filename.split('/')[-1]
 	os.mkdir("alfie_out")
 	kingdom_files = {
 		0: "alfie_out/animalia_",
@@ -36,7 +37,7 @@ def outfile_dict(filename):
 
 
 	for k, v in kingdom_files.items():
-		v += filename
+		v += f_stripped
 		kingdom_files[k] = v		
 
 	return kingdom_files
