@@ -50,7 +50,12 @@ def main():
 	kingdom_outfiles = seqio.outfile_dict(file)
 
 	# load the tensorflow model
-	model = tf.keras.models.load_model('dnn_alfie/alf_dnn.h5')
+	if args.model == '4mer':
+		model = tf.keras.models.load_model('dnn_alfie/alf_dnn.h5')
+	elif args.model == '6mer':
+		model = tf.keras.models.load_model('dnn_alfie/dnn_model_6mers.h5')
+	else
+		raise ValueError("valid model choices are '4mer' or '6mer'")
 
 	if ftype == 'fasta': 
 		if args.batch == 0:
@@ -67,7 +72,10 @@ def main():
 ###abstract this part to a function - same for all the situations
 			# once read in generate the kmer data
 			for entry in seq_records:
-				entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'])
+				if args.model == '4mer':
+					entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'])
+				else:
+					entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], kmers=[6])
 
 			vals = np.array([seq_records[i]['kmer_data'].kmer_freqs for i in range(len(seq_records))])
 			
