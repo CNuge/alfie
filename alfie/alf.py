@@ -17,6 +17,23 @@ globals
 
 """
 
+
+def process_records(seq_records, dnn_model, model):
+
+	for entry in seq_records:
+		if model == '6mer':
+			entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], kmers=[6])
+		else:
+			entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'])
+
+	vals = np.array([seq_records[i]['kmer_data'].kmer_freqs for i in range(len(seq_records))])
+	
+	yht_out = dnn_model.predict(vals)
+
+	predictions = np.argmax(yht_out, axis = 1)
+
+	return seq_records, predictions
+
 def main():
 	parser  = argparse.ArgumentParser(prog = "alfie",
 		description = "Alfie\n"+\
@@ -39,70 +56,69 @@ def main():
 		"accurate (~99.8\% accuracy), but this comes with the tradeoff of increased processing time.")
 
 	args = parser.parse_args()
-	file='../data/example_data.fasta'
+
+	file = args.file
+	model = args.model
+	batch = args.batch
+
+	model = '4mer'
+	file = '../data/example_data.fasta'
+	file = '../data/example_data.fastq'
+
 
 	#check if fasta or fastq input
-	ftype = seqio.file_type(args.file)
 	ftype = seqio.file_type(file)
 
 	# build the output filenames
-	kingdom_outfiles = seqio.outfile_dict(args.file)
 	kingdom_outfiles = seqio.outfile_dict(file)
 
 	# load the tensorflow model
-	if args.model == '4mer':
-		model = tf.keras.models.load_model('dnn_alfie/alf_dnn.h5')
-	elif args.model == '6mer':
-		model = tf.keras.models.load_model('dnn_alfie/dnn_model_6mers.h5')
-	else
+	if model == '4mer':
+		dnn_model = tf.keras.models.load_model('dnn_alfie/alf_dnn.h5')
+	elif model == '6mer':
+		dnn_model = tf.keras.models.load_model('dnn_alfie/dnn_model_6mers.h5')
+	else:
 		raise ValueError("valid model choices are '4mer' or '6mer'")
 
 	if ftype == 'fasta': 
-		if args.batch == 0:
+		if batch != 0:
 			# batch fasta processing
+			for b in iter_read_fasta(file, batch):
 
-			#make a generator function version of the read_fasta and read_fastq
-			
+				seq_records, predictions = process_records(b, dnn_model, model)
+
+				for i, entry in enumerate(seq_records):
+					outfile = kingdom_outfiles[predictions[i]]
+					seqio.write_fasta(entry, outfile)
 
 		else:
 			# full file fasta processing
-			seq_records = seqio.read_fasta(args.file)
 			seq_records = seqio.read_fasta(file)
 
-###abstract this part to a function - same for all the situations
-			# once read in generate the kmer data
-			for entry in seq_records:
-				if args.model == '4mer':
-					entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'])
-				else:
-					entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], kmers=[6])
+			seq_records, predictions = process_records(seq_records, dnn_model, model)
 
-			vals = np.array([seq_records[i]['kmer_data'].kmer_freqs for i in range(len(seq_records))])
-			
-			yht_out = model.predict(vals)
-
-			predictions = np.argmax(yht_out, axis = 1)
-###
 			for i, entry in enumerate(seq_records):
 				outfile = kingdom_outfiles[predictions[i]]
 				seqio.write_fasta(entry, outfile)
 
-			# turn kmer data into numpy array of proper structure
-			# get the kmer_freqs for each 
-			# kmer_data entry
-
-			# load the model
-
-			# pass the array of kmer data entries to the model
-
-			# use the predictions to write the entries to the correct file
-			# need the numeric encoding of the kingdoms stored here.
-
-
 
 	elif ftype == 'fastq':
-		if args.batch == 0:
+		if batch != 0:
 			# batch fastq processing
+			for b in iter_read_fastq(file, batch):
+
+				seq_records, predictions = process_records(b, dnn_model, model)
+
+				for i, entry in enumerate(seq_records):
+					outfile = kingdom_outfiles[predictions[i]]
+					seqio.write_fastq(entry, outfile)
 
 		else:
 			# full file fastq processing
+			seq_records = seqio.read_fastq(file)
+
+			seq_records, predictions = process_records(seq_records, dnn_model, model)
+
+			for i, entry in enumerate(seq_records):
+				outfile = kingdom_outfiles[predictions[i]]
+				seqio.write_fastq(entry, outfile)

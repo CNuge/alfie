@@ -70,6 +70,37 @@ def read_fasta(filename):
 	return seq_records
 
 
+def iter_read_fasta(filename, batch = 1000):
+	"""	
+	iteratively read in a fasta file, yielding batches of sequences. 
+	batch size defined as argument, default is 1000 sequences
+	"""
+	seq_records = []
+
+	record = {"name" : None, "sequence" : ""}
+
+	with open(filename) as file:
+		for line in file:
+			#if we hit a new record
+			if line[0] == ">":
+				#if current record, append to the record list
+				if record["name"] != None:
+					seq_records.append(copy.copy(record))
+					
+					if len(seq_records)	== batch:
+						yield seq_records
+						seq_records = []
+
+				record["name"] = line[1:]
+				record["sequence"] = ""
+			else:
+				record["sequence"] += line.rstrip()
+
+	if seq_records:
+		yield seq_records
+
+
+
 def process_fastq_record(lines):
 	""" 
 	Take the four lines of a fastq record and create a dictonary for the record
@@ -98,6 +129,33 @@ def read_fastq(filename):
 
 	return records
 
+
+def iter_read_fastq(filename, batch = 1000):
+	""" 
+	iteratively read in a fastq file, yielding batches of sequences. 
+	batch size defined as argument, default is 1000 sequences
+	"""
+	records = []
+	n = 4
+
+	i = 0
+	with open(filename, 'r') as file:
+		lines = []
+		for line in file:
+			lines.append(line.rstrip())
+			if len(lines) == n:
+				record = process_fastq_record(lines)
+				records.append(record)
+				lines = []
+
+				if len(records) == batch:
+					print(f'batch: {i}')
+					i+=1
+					yield records
+					records = []
+				
+	if records:
+		yield records
 
 
 def write_fasta(entry, filename, append_seq = True):
@@ -148,7 +206,7 @@ def write_fastq(entry, filename, append_seq = True):
 	outstring = ''
 
 	for x in entry:
-		str_x = f"@{x['name']}\n{x['sequence']}\n{x['plus']}\n{x['quality']}"
+		str_x = f"{x['name']}\n{x['sequence']}\n{x['plus']}\n{x['quality']}\n"
 		outstring+=str_x
 
 	if append_seq == True:
