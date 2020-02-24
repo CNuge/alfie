@@ -26,7 +26,10 @@ def outfile_dict(filename):
 	dict keys are the numeric encodings of the kingdom names
 	"""
 	f_stripped = filename.split('/')[-1]
-	os.mkdir("alfie_out")
+
+	if os.path.isdir("alfie_out") == False:
+		os.mkdir("alfie_out")
+
 	kingdom_files = {
 		0: "alfie_out/animalia_",
 		1: "alfie_out/bacteria_",
@@ -96,8 +99,9 @@ def iter_read_fasta(filename, batch = 1000):
 			else:
 				record["sequence"] += line.rstrip()
 
-	if seq_records:
-		yield seq_records
+	seq_records.append(record)	
+
+	yield seq_records
 
 
 
@@ -138,7 +142,6 @@ def iter_read_fastq(filename, batch = 1000):
 	records = []
 	n = 4
 
-	i = 0
 	with open(filename, 'r') as file:
 		lines = []
 		for line in file:
@@ -149,8 +152,6 @@ def iter_read_fastq(filename, batch = 1000):
 				lines = []
 
 				if len(records) == batch:
-					print(f'batch: {i}')
-					i+=1
 					yield records
 					records = []
 				
