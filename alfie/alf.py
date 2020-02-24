@@ -3,9 +3,8 @@ import argparse
 import numpy as np
 import tensorflow as tf
 
-import seqio
-from kmerseq import KmerFeatures
-
+import alfie.seqio as seqio
+from alfie.kmerseq import KmerFeatures
 
 
 def process_records(seq_records, dnn_model, model, k):

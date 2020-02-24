@@ -38,7 +38,6 @@ def outfile_dict(filename):
 		4: "alfie_out/protista_",
 	}
 
-
 	for k, v in kingdom_files.items():
 		v += f_stripped
 		kingdom_files[k] = v		
