@@ -8,7 +8,7 @@ from alfie import dnn_k_four
 import alfie.seqio as seqio
 from alfie.kmerseq import KmerFeatures
 
-def process_records(seq_records, dnn_model, k):
+def process_records(seq_records, dnn_model = dnn_k_four , k = [4]):
 
 	for entry in seq_records:
 		entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], kmers=k)

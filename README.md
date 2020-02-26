@@ -50,3 +50,11 @@ alfie -f alfie/data/example_data.fastq -m alfie/data/dnn_model_6mers -k 6
 
 ### The alfie library
 Alfie can be used from within python via the api. manual, documentation, and examples are coming soon!
+
+
+
+
+### Acknowledgements
+
+This program is dedicated to my Dad's dog Alfie (pictured in readme). He's a good boy.
+
