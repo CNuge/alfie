@@ -16,6 +16,7 @@ setup(
 	long_description = long_description,
 	license= 'LICENSE.md',
 	packages = find_packages(),
+	package_data={'alfie': ['data/*']},
 	entry_points = {
 	'console_scripts':[
 	'alfie = alfie.alf:main']
