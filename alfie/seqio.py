@@ -93,7 +93,7 @@ def iter_read_fasta(filename, batch = 1000):
 						yield seq_records
 						seq_records = []
 
-				record["name"] = line[1:]
+				record["name"] = line[1:].rstrip()
 				record["sequence"] = ""
 			else:
 				record["sequence"] += line.rstrip()
@@ -108,7 +108,7 @@ def process_fastq_record(lines):
 	""" 
 	Take the four lines of a fastq record and create a dictonary for the record
 	"""
-	ks = ['name', 'sequence', 'plus', 'quality']
+	ks = ['name', 'sequence', 'strand', 'quality']
 	return {k: v for k, v in zip(ks, lines)}
 
 
@@ -176,7 +176,7 @@ def write_fasta(entry, filename, append_seq = True):
 	outstring = ''
 
 	for x in entry:
-		str_x = f">{x['name']}{x['sequence']}\n"
+		str_x = f">{x['name']}\n{x['sequence']}\n"
 		outstring+=str_x
 
 	if append_seq == True:
@@ -206,7 +206,7 @@ def write_fastq(entry, filename, append_seq = True):
 	outstring = ''
 
 	for x in entry:
-		str_x = f"{x['name']}\n{x['sequence']}\n{x['plus']}\n{x['quality']}\n"
+		str_x = f"{x['name']}\n{x['sequence']}\n{x['strand']}\n{x['quality']}\n"
 		outstring+=str_x
 
 	if append_seq == True:

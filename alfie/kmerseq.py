@@ -1,6 +1,7 @@
 
 import numpy as np
 
+
 class KmerFeatures:
 	"""
 	KmerSeq class - obtain kmer counts for a given dna string.
