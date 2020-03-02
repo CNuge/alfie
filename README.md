@@ -3,15 +3,15 @@
 
 ## Note: This is a work in progress. It is functional, but documentation and tests are still being added
 
-Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode. Alfie classifies sequens using a neural network which takes k-mer frequencies (default k = 4) as inputs and makes kingdom level classification predictions. At present, the program contains trained models for classification of cytochrome c oxidase I (COI) barcode sequences to the taxonomic level: kingdom. The program is effective at classifying sequences >200 base pairs in length, and no alignment information is needed. 
+Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode. Alfie classifies sequencess using a neural network which takes k-mer frequencies (default k = 4) as inputs and makes kingdom level classification predictions. At present, the program contains trained models for classification of cytochrome c oxidase I (COI) barcode sequences to the taxonomic level: kingdom. The program is effective at classifying sequences >200 base pairs in length, and no alignment information is needed. 
 
-Alfie can be deployed from the command line for rapid file-to-file classification of sequences. This is an effective means of separating contanimant sequences in a DNA metabarcoding or environmental DNA dataset from sequences of interest. 
+Alfie can be deployed from the command line for rapid file-to-file classification of sequences. This is an effective means of separating contaminant sequences in a DNA metabarcoding or environmental DNA dataset from sequences of interest. 
 
 For increased control, Alfie can also be deployed as a module from within Python. The alfie module contains functions that can aid a used in the training and application of a custom alignment-free classifier, which allows the program to be applied to different DNA barcodes (or genes) or on different taxonomic levels. (*documentation and examples for this coming soon*)
 
 ## Installation
 
-Alfie in a python3 program that depends on the python packages: `numpy`(version >= 1.18.1) and `tensorflow`(version>=2.0.0). If you do not have these installed, it is reccomended that you install python and the required packages via [anaconda](https://www.anaconda.com/distribution/).
+Alfie in a python3 program that depends on the python packages: `numpy`(version >= 1.18.1) and `tensorflow`(version>=2.0.0). If you do not have these installed, it is recommended that you install python and the required packages via [anaconda](https://www.anaconda.com/distribution/).
 
 To install alfie, download and unzip this repository. From the terminal, enter the downloaded repository and then run the following command:
 ```
@@ -43,7 +43,7 @@ For very large files, the input sequence file may need to be processed in a batc
 alfie -f alfie/data/example_data.fastq -b 100
 ```
 
-By default, alignment free classification is performed using the default feature set (4mer frequencies) and the corresponding, pre-trained neural network (trained on `COI-5P` sequence fragments of varying lenths). A user can pass an alternative neural network to make predictions with using the `-m` flag. If this option is exercised and the model has not been trained on 4mers, then the `-k` flag must be used to ensure the proper set of kmer features are generated to match the neural network input strucutre.
+By default, alignment free classification is performed using the default feature set (4mer frequencies) and the corresponding, pre-trained neural network (trained on `COI-5P` sequence fragments of varying lenths). A user can pass an alternative neural network to make predictions with using the `-m` flag. If this option is exercised and the model has not been trained on 4mers, then the `-k` flag must be used to ensure the proper set of kmer features are generated to match the neural network input structure.
 
 ```
 #example using the 6mer model that ships with alfie, note the -k 6 option is required
@@ -51,12 +51,12 @@ alfie -f alfie/data/example_data.fastq -m alfie/data/dnn_model_6mers -k 6
 ```
 
 ### The alfie library
-Alfie can be used from within python via the api. manual, documentation, and examples are coming soon!
+Alfie can be used from within python via the api. Manual, documentation, and examples are coming soon!
 
 
 
 
 ### Acknowledgements
 
-This program is dedicated to my Dad's dog Alfie (pictured in readme). He's a good boy.
+This program is dedicated to my Dad's dog, Alfie (pictured in readme). He is a good boy.
 
