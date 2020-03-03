@@ -51,9 +51,9 @@ alfie -f alfie/data/example_data.fastq -m alfie/data/dnn_model_6mers -k 6
 
 ### The alfie package
 
-For more control, the alfie package can be deployed from within Python. The package contains modules featuring a kingdom-level classifier, functions for fasta and fastq input/output, and helper functions to aid a user is training and deploying a customized alignment-free sequence classifier.
+For more control, the alfie package can be deployed from within Python. The package contains modules with: a kingdom-level classifier, functions for fasta and fastq input/output, and helper functions to aid a user is training and deploying a customized alignment-free sequence classifier.
 
-Deploying alife as a kingdom-level classifier from within python is fairly simple. 
+Deploying alife as a kingdom-level classifier from within Python is fairly simple. 
 
 The following example data is available through alfie:
 ```
@@ -96,5 +96,5 @@ For a more detailed demonstration of the alfie module's functionality please [co
 
 ### Acknowledgements
 
-This program is dedicated to my Dad's dog, Alfie (pictured in readme). He is a good boy.
+This program is dedicated to my Dad's dog, Alfie (pictured in the README). He is a good boy.
 
