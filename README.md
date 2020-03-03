@@ -5,7 +5,8 @@ Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode. 
 
 Alfie can be deployed from the command line for rapid file-to-file classification of sequences. This is an effective means of separating contaminant sequences in a DNA metabarcoding or environmental DNA dataset from sequences of interest. 
 
-For increased control, Alfie can also be deployed as a module from within Python. The alfie module contains functions that can aid a user in the training and application of a custom alignment-free classifier, which allows the program to be applied to different DNA barcodes (or genes) or on different taxonomic levels. (*documentation and examples for this coming soon*)
+For increased control, Alfie can also be deployed as a module from within Python. The alfie module contains functions that can aid a user in the training and application of a custom alignment-free classifier, which allows the program to be applied to different DNA barcodes (or genes) or on different taxonomic levels. 
+
 
 ## Installation
 
@@ -49,7 +50,42 @@ alfie -f alfie/data/example_data.fastq -m alfie/data/dnn_model_6mers -k 6
 ```
 
 ### The alfie library
-Alfie can be used from within python via the api. Manual, documentation, and examples are coming soon!
+
+For a control, the alfie module can be deployed from within Python. The module contains a classification function, functions for fasta and fastq input and output, and helper functions to aid a user is training and deploying a customized variant of the classifier.
+
+Deploying alife as a kingdom-level classifier from within python is simple! 
+
+```
+# example data included in module
+from alfie import example_fasta
+
+example_fasta[0]
+
+{'name': 'seq1_plantae',
+ 'sequence': 'TTCTAGGAGCATGTATATCTATGCTAATCCGAATGGAATTAGCTCAACCAGGTAACCATTTGCTTTTAGGTAATCACCAAGTATACAATGTTTTAATTACAGCACATGCTTTTTTAATGATTTTTTTTATGGTAATGCCTGTAATGATTGGTGGTTTTGGTAATTGGTTAGTTCCTATTATGATAGGAAGTCCAGATATGGCTTTTCCTAGACTAAATAACATATCTTTTTGACTTCTTCCACCTTCTTTATGTTTACTTTTAGCTTCTTCAATGGTTGAAGTAGGTGTTGGAACAGGATGAACTGTTTATCCTCCCCTTAGTTCGATACAAAGTCATTCAGGCGGAGCTGTTGATTTAGCAATTTTTAGCTTACATTTATCTGGAGCTTCATCGATTTTAGGAGCTGTCAATTTTATTTCTACGATTCTAAATATGCGTAATCCTGGGCAAAGCATGTATCGAATGCCATTATTTGTTTGATCTATTTTTGTAACGGCA'}
+ #fastq dict will have 'strand' and 'quality' as well
+```
+
+```
+#import classifier
+from alfie.classify import classify_records
+
+#classify the sequences in example_fasta
+seq_records, predictions = classify_records(example_fasta)
+
+```
+
+```
+from alfie.classify import decode_predictions
+
+kingdom_labels = decode_predictions(predictions)
+kingdom_labels[:5]
+
+```
+
+For a more detailed demonstration of the alfie module's functionality please [consult the jupyter notebook included with this repository](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb). The notebook covers sequence IO and kingdom-level classification in more detail and also provides examples of how to train and deploy a custom, alignment-free classifier with alfie. Custom classifiers can be implemented for any taxonomic level or DNA barcode - just bring your own training data!
+
+
 
 
 
