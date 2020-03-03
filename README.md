@@ -49,9 +49,9 @@ By default, alignment free classification is performed using the default feature
 alfie -f alfie/data/example_data.fastq -m alfie/data/dnn_model_6mers -k 6
 ```
 
-### The alfie library
+### The alfie package
 
-For more control, the alfie module can be deployed from within Python. The module contains a kingdom-level classifier, functions for fasta and fastq input/output, and helper functions to aid a user is training and deploying a customized alignment-free sequence classifier.
+For more control, the alfie package can be deployed from within Python. The package contains modules featuring a kingdom-level classifier, functions for fasta and fastq input/output, and helper functions to aid a user is training and deploying a customized alignment-free sequence classifier.
 
 Deploying alife as a kingdom-level classifier from within python is fairly simple. 
 
