@@ -5,7 +5,7 @@ Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode. 
 
 Alfie can be deployed from the command line for rapid file-to-file classification of sequences. This is an effective means of separating contaminant sequences in a DNA metabarcoding or environmental DNA dataset from sequences of interest. 
 
-For increased control, Alfie can also be deployed as a module from within Python. The alfie module contains functions that can aid a used in the training and application of a custom alignment-free classifier, which allows the program to be applied to different DNA barcodes (or genes) or on different taxonomic levels. (*documentation and examples for this coming soon*)
+For increased control, Alfie can also be deployed as a module from within Python. The alfie module contains functions that can aid a user in the training and application of a custom alignment-free classifier, which allows the program to be applied to different DNA barcodes (or genes) or on different taxonomic levels. (*documentation and examples for this coming soon*)
 
 ## Installation
 
