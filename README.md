@@ -1,7 +1,7 @@
 # alfie <img src="alfie/data/alfie.jpeg" height="140" align="right" alt="Alfie"/>
 ## alignment free identification of eDNA
 
-Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode. Alfie classifies sequences using a neural network which takes k-mer frequencies (default k = 4) as inputs and makes kingdom level classification predictions. At present, the program contains trained models for classification of cytochrome c oxidase I (COI) barcode sequences to the taxonomic level: kingdom. The program is effective at classifying sequences >200 base pairs in length, and no alignment information is needed. 
+Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode data. Alfie classifies sequences using a neural network which takes k-mer frequencies (default k = 4) as inputs and makes kingdom level classification predictions. At present, the program contains trained models for classification of cytochrome c oxidase I (COI) barcode sequences to the taxonomic level: kingdom. The program is effective at classifying sequences >200 base pairs in length, and no alignment information is needed. 
 
 Alfie can be deployed from the command line for rapid file-to-file classification of sequences. This is an effective means of separating contaminant sequences in a DNA metabarcoding or environmental DNA dataset from sequences of interest. 
 
@@ -10,7 +10,7 @@ For increased control, Alfie can also be deployed as a module from within Python
 
 ## Installation
 
-Alfie in a python3 program that depends on the python packages: `numpy`(version >= 1.18.1) and `tensorflow`(version>=2.0.0). If you do not have these installed, it is recommended that you install python and the required packages via [anaconda](https://www.anaconda.com/distribution/).
+Alfie in a python3 program that depends on the python packages: `numpy` (version >= 1.18.1) and `tensorflow` (version>=2.0.0). If you do not have these installed, it is recommended that you install python and the required packages via [anaconda](https://www.anaconda.com/distribution/).
 
 To install alfie, download and unzip this repository. From the terminal, enter the downloaded repository and then run the following command:
 ```
@@ -24,9 +24,9 @@ alfie -h
 
 ## Usage 
 ### Command line interface
-Alfie can be run as a stand alone command line interface, just specify an input `.fasta` or `.fastq` file using the `-f` flag, and alfie will conduct classification, splitting the input file into five sub files with sequences from the five kingdoms. The output will be a folder named `alfie_out`. The output folder will contain five files (names same as the input, with a prefix indicating the kingdom) that respectively contain the sequence records corrsponding to the kingdom indicated in the file prefix.
+Alfie can be run as a stand alone command line interface, just specify an input `.fasta` or `.fastq` file using the `-f` flag, and alfie will conduct classification, splitting the input file into five sub files with sequences from the five kingdoms. The output will be a folder named `alfie_out`. The output folder will contain five files (names same as the input, with a prefix indicating the kingdom) that respectively contain the sequence records corresponding to the kingdom indicated in the file prefix.
 
-You can test this out using the example files shipped with aflie.
+You can test this out using the example files shipped with alfie.
 ```
 #from within the alfie folder
 alfie -f alfie/data/example_data.fasta
@@ -51,16 +51,15 @@ alfie -f alfie/data/example_data.fastq -m alfie/data/dnn_model_6mers -k 6
 
 ### The alfie library
 
-For more control, the alfie module can be deployed from within Python. The module contains a kingdom-level classifier, functions for fasta and fastq input/output, and helper functions to aid a user is training and deploying a customized variant of the classifier.
+For more control, the alfie module can be deployed from within Python. The module contains a kingdom-level classifier, functions for fasta and fastq input/output, and helper functions to aid a user is training and deploying a customized alignment-free sequence classifier.
 
 Deploying alife as a kingdom-level classifier from within python is fairly simple. 
 
-The following example data is available through alfie
+The following example data is available through alfie:
 ```
 from alfie import example_fasta
 
-#peek at the data structure, a list of dictonaries
-
+#peek at the data structure, it is a list of dictonaries
 example_fasta[0]
 {'name': 'seq1_plantae',
  'sequence': 'TTCTAGGAGCATGTATATCTATGCTAATCCGAATGGAATTAGCTCAACCAGGTAACCATTTGCTTTTAGGTAATCACCAAGTATACAATGTTTTAATTACAGCACATGCTTTTTTAATGATTTTTTTTATGGTAATGCCTGTAATGATTGGTGGTTTTGGTAATTGGTTAGTTCCTATTATGATAGGAAGTCCAGATATGGCTTTTCCTAGACTAAATAACATATCTTTTTGACTTCTTCCACCTTCTTTATGTTTACTTTTAGCTTCTTCAATGGTTGAAGTAGGTGTTGGAACAGGATGAACTGTTTATCCTCCCCTTAGTTCGATACAAAGTCATTCAGGCGGAGCTGTTGATTTAGCAATTTTTAGCTTACATTTATCTGGAGCTTCATCGATTTTAGGAGCTGTCAATTTTATTTCTACGATTCTAAATATGCGTAATCCTGGGCAAAGCATGTATCGAATGCCATTATTTGTTTGATCTATTTTTGTAACGGCA'}
@@ -80,7 +79,7 @@ predictions[:5]
 #array([3, 1, 4, 0, 0])
 ```
 
-The function returns two outputs a list of records (`seq_records`) and an array of classifications assigning the records to kingdoms. The returned classifications are numeric (0 == "animalia", 1 == "bacteria", 2 == "fungi", 3 == "plantae", 4 == "protista"). Kingdom classifications can be decoded to kingom names using the `decode_predictions` function.
+The function returns two outputs a list of records (`seq_records`) and an array of classifications (`predictions`) assigning the records to kingdoms. The returned classifications are numeric (0 == "animalia", 1 == "bacteria", 2 == "fungi", 3 == "plantae", 4 == "protista"). Kingdom classifications can be decoded to kingdom names using the `decode_predictions` function.
 
 ```
 from alfie.classify import decode_predictions
@@ -92,7 +91,7 @@ kingdom_labels[:5]
 
 ```
 
-For a more detailed demonstration of the alfie module's functionality please [consult the jupyter notebook included with this repository](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb). The notebook covers sequence IO and kingdom-level classification in more detail and also provides examples of how to train and deploy a custom, alignment-free classifier with alfie. Custom classifiers can be implemented for any taxonomic level or DNA barcode - just bring your own training data!
+For a more detailed demonstration of the alfie module's functionality please [consult the jupyter notebook included with this repository](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb). The notebook covers sequence IO and kingdom-level classification in more detail, and also provides examples of how to train and deploy a custom, alignment-free classifier with alfie. Custom classifiers can be implemented for any taxonomic level or DNA barcode - just bring your own training data!
 
 
 ### Acknowledgements
