@@ -62,7 +62,7 @@ def read_fasta(filename):
 				#if current record, append to the record list
 				if record["name"] != None:
 					seq_records.append(copy.copy(record))	
-				record["name"] = line[1:]
+				record["name"] = line[1:].rstrip()
 				record["sequence"] = ""
 			else:
 				record["sequence"] += line.rstrip()
