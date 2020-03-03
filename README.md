@@ -51,20 +51,23 @@ alfie -f alfie/data/example_data.fastq -m alfie/data/dnn_model_6mers -k 6
 
 ### The alfie library
 
-For a control, the alfie module can be deployed from within Python. The module contains a classification function, functions for fasta and fastq input and output, and helper functions to aid a user is training and deploying a customized variant of the classifier.
+For more control, the alfie module can be deployed from within Python. The module contains a kingdom-level classifier, functions for fasta and fastq input/output, and helper functions to aid a user is training and deploying a customized variant of the classifier.
 
-Deploying alife as a kingdom-level classifier from within python is simple! 
+Deploying alife as a kingdom-level classifier from within python is fairly simple. 
 
+The following example data is available through alfie
 ```
-# example data included in module
 from alfie import example_fasta
 
-example_fasta[0]
+#peek at the data structure, a list of dictonaries
 
+example_fasta[0]
 {'name': 'seq1_plantae',
  'sequence': 'TTCTAGGAGCATGTATATCTATGCTAATCCGAATGGAATTAGCTCAACCAGGTAACCATTTGCTTTTAGGTAATCACCAAGTATACAATGTTTTAATTACAGCACATGCTTTTTTAATGATTTTTTTTATGGTAATGCCTGTAATGATTGGTGGTTTTGGTAATTGGTTAGTTCCTATTATGATAGGAAGTCCAGATATGGCTTTTCCTAGACTAAATAACATATCTTTTTGACTTCTTCCACCTTCTTTATGTTTACTTTTAGCTTCTTCAATGGTTGAAGTAGGTGTTGGAACAGGATGAACTGTTTATCCTCCCCTTAGTTCGATACAAAGTCATTCAGGCGGAGCTGTTGATTTAGCAATTTTTAGCTTACATTTATCTGGAGCTTCATCGATTTTAGGAGCTGTCAATTTTATTTCTACGATTCTAAATATGCGTAATCCTGGGCAAAGCATGTATCGAATGCCATTATTTGTTTGATCTATTTTTGTAACGGCA'}
- #fastq dict will have 'strand' and 'quality' as well
+ # a fastq sequence will have 'strand' and 'quality' key,value pairs as well
 ```
+
+The `classify_records` function can be used to classify a list sequence records. 
 
 ```
 #import classifier
@@ -73,21 +76,23 @@ from alfie.classify import classify_records
 #classify the sequences in example_fasta
 seq_records, predictions = classify_records(example_fasta)
 
+predictions[:5]
+#array([3, 1, 4, 0, 0])
 ```
+
+The function returns two outputs a list of records (`seq_records`) and an array of classifications assigning the records to kingdoms. The returned classifications are numeric (0 == "animalia", 1 == "bacteria", 2 == "fungi", 3 == "plantae", 4 == "protista"). Kingdom classifications can be decoded to kingom names using the `decode_predictions` function.
 
 ```
 from alfie.classify import decode_predictions
 
 kingdom_labels = decode_predictions(predictions)
+
 kingdom_labels[:5]
+#['plantae', 'bacteria', 'protista', 'animalia', 'animalia']
 
 ```
 
 For a more detailed demonstration of the alfie module's functionality please [consult the jupyter notebook included with this repository](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb). The notebook covers sequence IO and kingdom-level classification in more detail and also provides examples of how to train and deploy a custom, alignment-free classifier with alfie. Custom classifiers can be implemented for any taxonomic level or DNA barcode - just bring your own training data!
-
-
-
-
 
 
 ### Acknowledgements
