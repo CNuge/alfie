@@ -40,7 +40,7 @@ def main():
 
 	file = args.file
 	model_file = args.model
-	kmer = [args.kmer]
+	kmer = args.kmer
 	batch = args.batch
 
 	if file == None:

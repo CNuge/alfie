@@ -12,7 +12,8 @@ class KmerFeatures:
 	The default behaviour is to produce an array of kmer frequencies for the
 	kmer size 4.
 	Kmer frequencies are relative to one another, i.e. the array will sum to 1.
-	You can obtain a df with multiple kmers by passing a list: [6,3]
+	You can obtain a df with custom size kmers by alternative integer to the kmer
+	argument.
 
 	usage:
 	#initiate a class instance
@@ -42,25 +43,18 @@ class KmerFeatures:
 
 	
 	"""
-	def __init__(self, name, sequence, kmers = [4]):
+	def __init__(self, name, sequence, kmers = 4):
 
 		self.name = name
 		self.kmers = kmers
 		self.seq = sequence.upper()
 
-		self.outkeys = []
-		self.outvals = []
-
-		for k in kmers:
-			self.k = k
-			self.k_dict = self.kmer_dict(self.k)
-			self.count_kmers()
-
-			self.outkeys.extend(self.keys())
-			self.outvals.extend(self.freq_values())
+		self.k = kmers
+		self.k_dict = self.kmer_dict(k = self.k)
+		self.count_kmers()
 
 
-	def kmer_build(self, k = 6, dna_list = ['A', 'C', 'G', 'T']):
+	def kmer_build(self, k = 4, dna_list = ['A', 'C', 'G', 'T']):
 		"""
 		recursive construction of all nucleotide kmer combinations 
 		"""
@@ -83,7 +77,7 @@ class KmerFeatures:
 			return self.kmer_build(k, new_dna_list)
 
 
-	def kmer_dict(self, k = 6):
+	def kmer_dict(self, k = 4):
 		"""
 		builds a dictonary where the keys are all the nt combinations
 		for the specified k and the values are integers
@@ -120,7 +114,6 @@ class KmerFeatures:
 		""" 
 		returns a list of the kmer keys, in sorted alphabetical order
 		"""
-
 		return [k for k , v in sorted(self.k_dict.items())]
 
 
@@ -144,10 +137,10 @@ class KmerFeatures:
 	@property
 	def labels(self):
 		""" the labels of the kmer freq columns """
-		return np.array(self.outkeys)
+		return np.array(self.keys())
 
 	@property
 	def kmer_freqs(self):
 		""" the kmer frequency values """
+		return np.array(self.freq_values())
 
-		return np.array(self.outvals)

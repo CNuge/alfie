@@ -54,7 +54,7 @@ def sample_seq(seq, min_size = 200, max_size = 600, n = 1, seed = None):
 	return outseqs
 
 
-def process_sequences(seq_df, label_col = 'kingdom',  kmers=[4], **kwargs):
+def process_sequences(seq_df, label_col = 'kingdom',  kmers=4, **kwargs):
 	"""
 	take in a dataframe with dna in a column names 'clean_dna', conduct repeated
 	subsampling of the sequence and generate kmer information for each subsample.

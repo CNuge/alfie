@@ -21,7 +21,7 @@ setup(
 	'console_scripts':[
 	'alfie = alfie.alf:main']
 	},
-
+	python_requires='>=3.6',
 	install_requires = requirements,
 
 	)
