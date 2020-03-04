@@ -5,14 +5,11 @@ python:
 
 install:
   - pip install -r requirements.txt
-  - pip install codecov
 
 script:
   - python setup.py install
   - python alfie/test_kmerseq.py
   - python alfie/test_seqio.py
-  - coverage run alfie/test_kmerseq.py
-  - coverage run alfie/test_seqio.py
 
 after_success:
     - codecov
