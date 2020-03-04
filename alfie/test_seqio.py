@@ -20,8 +20,8 @@ class SeqioTests(unittest.TestCase):
 										 3: 'alfie_out/plantae_test.fasta',
 										 4: 'alfie_out/protista_test.fasta'}
 		
-		self._fasta_infile = '../data/small_unittest.fasta'
-		self._fastq_infile = '../data/small_unittest.fastq'
+		self._fasta_infile = 'data/small_unittest.fasta'
+		self._fastq_infile = 'data/small_unittest.fastq'
 
 	@classmethod
 	def tearDown(self):
@@ -74,11 +74,11 @@ class SeqioTests(unittest.TestCase):
 		self.assertEqual(len(self._fasta_read), 3)
 		
 		self.assertEqual(self._fasta_read[0]['name'], 
-						"example_read_1\n")
+						"example_read_1")
 		self.assertEqual(self._fasta_read[1]['name'], 
-						"example_read_2\n")
+						"example_read_2")
 		self.assertEqual(self._fasta_read[2]['name'], 
-						"example_read_3\n")
+						"example_read_3")
 
 		self.assertEqual(self._fasta_read[0]['sequence'][:25], 
 						"gttcaacaaatcataaagatattgg")
@@ -94,7 +94,7 @@ class SeqioTests(unittest.TestCase):
 	
 		for i in range(len(self._fastq_read)):
 			self.assertEqual(list(self._fastq_read[i].keys()),
-							['name', 'sequence', 'plus', 'quality'])
+							['name', 'sequence', 'strand', 'quality'])
 
 		self.assertEqual(self._fastq_read[0]['sequence'][:25], 
 						"gttcaacaaatcataaagatattgg")

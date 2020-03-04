@@ -23,16 +23,16 @@ class KmerTests(unittest.TestCase):
 						"test1")
 
 		self.assertEqual(self.test_kmers.labels.shape,
-						(4160,))
+						(256,))
 
 		self.assertEqual(list(self.test_kmers.labels[:3]),
-				['AAAAAA', 'AAAAAC', 'AAAAAG'])
+				['AAAA', 'AAAC', 'AAAG'])
 
 		self.assertEqual(list(self.test_kmers.labels[-3:]),
-				['TTC', 'TTG', 'TTT'])
+				['TTTC', 'TTTG', 'TTTT'])
 
 		self.assertEqual(self.test_kmers.kmer_freqs.shape,
-						(4160,))
+						(256,))
 
 
 if __name__ == '__main__':
