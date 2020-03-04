@@ -4,6 +4,7 @@ python:
 install:
   - pip install -r requirements.txt
 script:
+  - python setup.py install
   - python alfie/test_kmerseq.py
   - python alfie/test_seqio.py
 
