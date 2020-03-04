@@ -1,8 +1,10 @@
-languate: python
+language: python
 python:
   - "3.7"
+
 install:
   - pip install -r requirements.txt
+
 script:
   - python setup.py install
   - python alfie/test_kmerseq.py
