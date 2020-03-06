@@ -43,31 +43,32 @@ def sample_seq(seq, min_size = 200, max_size = 600, n = 1, seed = None):
 	if max_size > len(seq):
 		max_size = len(seq)
 	#get the set of random window sizes
-	win_sizes = [random.randint(min_size, max_size) for x in range(n)]
+	win_sizes = [np.random.randint(min_size, max_size) for x in range(n)]
 	#for each window size, randomly subset the sequence by choosing a start point
 	#and slicing the seq.
 	for win_x in win_sizes:
-		win_start = random.randint(0, (len(seq) - win_x))
+		win_start = np.random.randint(0, (len(seq) - win_x))
 		subseq = seq[win_start:(win_start+win_x)]
 		outseqs.append(subseq)
 
 	return outseqs
 
 
-def process_sequences(seq_df, label_col = 'kingdom',  kmers=4, **kwargs):
+def process_sequences(seq_df, id_col = 'processid',
+							seq_col = 'clean_dna', 
+							label_col = 'kingdom',  kmers=4, **kwargs):
 	"""
-	take in a dataframe with dna in a column names 'clean_dna', conduct repeated
-	subsampling of the sequence and generate kmer information for each subsample.
+	take in a dataframe with dna sequence, label and id information.
+	conduct subsampling of the sequenceS and generate kmer information for each subsample.
 
-	- you can control the subsampling protocol by passing seq_samples keyword arguments
-	to this function.
 
 	returns a dict of lists: 
-	keys(ids, label, data)
+	keys(ids, label, data, SEQ)
 
-	ids - the processids
-	label - the kingdom column by default, this can be changed as needed 
-	data - the kmer array is 6mer+3mer as per previous
+	ids - the sequence IDs
+	label - the sequence label column 
+	data - the kmer array frequency as per previous
+	seq - the DNA sequence used to generate the kmer array
 	"""
 
 	#stores tuples of (processid, kingdom, kmer_freqs)
@@ -78,9 +79,9 @@ def process_sequences(seq_df, label_col = 'kingdom',  kmers=4, **kwargs):
 	# data are split to train and test
 	# now do the upsampling and generation of the output data files.
 	for entry in seq_df.iterrows():
-		processid =  entry[1].processid
+		processid =  entry[1][id_col]
 		label = entry[1][label_col]
-		seq =  entry[1].clean_dna
+		seq =  entry[1][seq_col]
 
 		sub_seqs = seq_samples(seq, **kwargs)
 

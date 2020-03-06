@@ -6,7 +6,7 @@ from alfie import dnn_k_four
 from alfie.kmerseq import KmerFeatures
 
 
-def classify_records(seq_records, dnn_model = dnn_k_four, k = [4]):
+def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
 	"""
 	take a series of DNA sequence records and classify them with the 
 	"""
