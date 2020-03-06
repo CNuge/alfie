@@ -2,6 +2,8 @@
 note putting here in case I want to make a training api as well, if this is the case
 then a sklearn dependency is introduced.
 """
+import tensorflow as tf
+
 import numpy as np
 
 from alfie.kmerseq import KmerFeatures
@@ -55,15 +57,14 @@ def sample_seq(seq, min_size = 200, max_size = 600, n = 1, seed = None):
 
 
 def process_sequences(seq_df, id_col = 'processid',
-							seq_col = 'clean_dna', 
+							seq_col = 'sequence', 
 							label_col = 'kingdom',  kmers=4, **kwargs):
 	"""
 	take in a dataframe with dna sequence, label and id information.
 	conduct subsampling of the sequenceS and generate kmer information for each subsample.
 
-
 	returns a dict of lists: 
-	keys(ids, label, data, SEQ)
+	keys(ids, label, data, seq)
 
 	ids - the sequence IDs
 	label - the sequence label column 
@@ -83,7 +84,7 @@ def process_sequences(seq_df, id_col = 'processid',
 		label = entry[1][label_col]
 		seq =  entry[1][seq_col]
 
-		sub_seqs = seq_samples(seq, **kwargs)
+		sub_seqs = sample_seq(seq, **kwargs)
 
 		for s in sub_seqs:
 			k_seq = KmerFeatures(processid, s, kmers=kmers)
@@ -106,7 +107,7 @@ def shuffle_unison(x, y):
 
 
 def alfie_dnn_default(hidden_sizes = [100], dropout = 0.2,
-						in_shape = 4160, n_classes = 5):
+						in_shape = 256, n_classes = 5):
 	"""
 	builds a simple deep neural network using the keras wrapper.
 	hidden_sizes - neuron sizes for the hidden layers

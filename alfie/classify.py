@@ -10,7 +10,6 @@ def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
 	"""
 	take a series of DNA sequence records and classify them with the 
 	"""
-
 	for entry in seq_records:
 		entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], kmers=k)
 
