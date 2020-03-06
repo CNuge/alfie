@@ -20,7 +20,8 @@ def file_type(s):
 			"Accepted file extensions: fa, fq, fasta, or fastq ")
 
 
-def outfile_dict(filename):
+def outfile_dict(filename, 
+	labels = ['animalia', 'bacteria', 'fungi', 'plantae', 'protista']):
 	""" 
 	build a dictonary with the output filenames.
 	dict keys are the numeric encodings of the kingdom names
@@ -30,19 +31,12 @@ def outfile_dict(filename):
 	if os.path.isdir("alfie_out") == False:
 		os.mkdir("alfie_out")
 
-	kingdom_files = {
-		0: "alfie_out/animalia_",
-		1: "alfie_out/bacteria_",
-		2: "alfie_out/fungi_",
-		3: "alfie_out/plantae_",
-		4: "alfie_out/protista_",
-	}
+	k_files = {}
 
-	for k, v in kingdom_files.items():
-		v += f_stripped
-		kingdom_files[k] = v		
+	for i, x in enumerate(labels):
+		k_files[i] = "alfie_out/" + x + "_" + f_stripped
 
-	return kingdom_files
+	return k_files
 
 
 

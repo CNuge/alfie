@@ -4,7 +4,24 @@ with open('requirements.txt') as f:
 	requirements = f.readlines()
 	requirements = [x.rstrip() for x in requirements]
 
-long_description = "Alfie is a package and CLI program, what is does will be written here."
+long_description = """
+Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode data. 
+Alfie classifies sequences using a neural network which takes k-mer frequencies (default k = 4)
+as inputs and makes kingdom level classification predictions. At present, the program contains 
+trained models for classification of cytochrome c oxidase I (COI) barcode sequences to the 
+taxonomic level: kingdom. The program is effective at classifying sequences >200 base pairs in 
+length, and no alignment information is needed.
+
+Alfie can be deployed from the command line for rapid file-to-file classification of sequences. 
+This is an effective means of separating contaminant sequences in a DNA metabarcoding or 
+environmental DNA dataset from sequences of interest.
+
+For increased control, alfie can also be deployed as a module from within Python. The alfie 
+module contains functions that can aid a user in the training and application of a custom 
+alignment-free classifier, which allows the program to be applied to different DNA barcodes 
+(or genes) or on different taxonomic levels.
+"""
+
 
 setup(
 	name = 'alfie',
