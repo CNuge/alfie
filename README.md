@@ -26,6 +26,7 @@ alfie -h
 
 ## Usage 
 ### Command line interface
+
 Alfie can be run as a stand alone command line interface, just specify an input `.fasta` or `.fastq` file using the `-f` flag, and alfie will conduct classification, splitting the input file into five sub files with sequences from the five kingdoms. The output will be a folder named `alfie_out`. The output folder will contain five files (names same as the input, with a prefix indicating the kingdom) that respectively contain the sequence records corresponding to the kingdom indicated in the file prefix.
 
 You can test this out using the example files shipped with alfie.
@@ -92,6 +93,8 @@ kingdom_labels[:5]
 #['plantae', 'bacteria', 'protista', 'animalia', 'animalia']
 
 ```
+
+### Advanced application and custom neural network construction
 
 For a more detailed demonstration of the alfie package's functionality please [consult the jupyter notebook included with this repository](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb). The notebook covers sequence input/output and kingdom-level classification in more detail, and also provides examples of how to train and deploy a custom, alignment-free classifier with alfie. Custom classifiers can be implemented for any taxonomic level or DNA barcode - you can bring your own training data or subset a taxonomic group of interest from [the dataset used to train alfie](https://github.com/CNuge/data-alfie).
 
