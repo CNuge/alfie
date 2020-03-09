@@ -5,7 +5,8 @@ Module containing the KmerFeatures class.
 Classes
 ==========
 
-KmerFeatures - A class to represent a DNA sequence and derive kmer measurements.
+KmerFeatures : A class to represent a DNA sequence and derive kmer measurements.
+
 """
 
 
@@ -30,12 +31,15 @@ class KmerFeatures:
 
 	Attributes
 	---------
-	name : str, 
+	name : str,
+
 	kmers : int, 
+	
 	sequence : str, 
 
-	
+		
 	labels : 
+	
 	kmer_freqs : 
 
 	Methods
