@@ -1,20 +1,20 @@
 """
-A module with functions to aid in training custom alignment-free DNA classifiers
-
+A module with functions to aid in training of custom alignment-free DNA classifiers.
 
 ==========
 Functions
 ==========
 
-sample_seq
+alfie_dnn_default : Construct a simple neural network for sequence classification. 
 
-stratified_taxon_split
+process_sequences : Conduct subsampling of the sequences and generate kmer information for sequence.
 
-process_sequences
+sample_seq : Take a full sequence and return a list of random subsamples.
 
-shuffle_unison
+shuffle_unison : Shuffle the two input numpy arrays in unison.
 
-alfie_dnn_default
+stratified_taxon_split : Conduct a stratified train/test split based on a user defined categorical column.
+
 
 """
 import tensorflow as tf
@@ -28,7 +28,18 @@ from sklearn.model_selection import StratifiedShuffleSplit
 
 def stratified_taxon_split(input_data, class_col, test_size = 0.3, silent = False):
 	"""
-	Conduct a stratified train/test split based of a user defined categorical column.
+	Conduct a stratified train/test split based on a user defined categorical column.
+	
+	Arguments
+	---------
+
+	Returns
+	---------
+
+	Examples
+	---------
+
+
 	"""
 	if silent == False:
 		print(f'Conducting train/test split, split evenly by: {class_col}')
@@ -48,6 +59,17 @@ def sample_seq(seq, min_size = 200, max_size = 600, n = 1, seed = None):
 	Take a full sequence and return a list of random subsamples.
 
 	Samples will be of a random length form within the defined sizes of the 
+	
+	Arguments
+	---------
+
+	Returns
+	---------
+
+	Examples
+	---------
+
+
 	"""
 	#list of output sequences
 	outseqs = []
@@ -85,6 +107,17 @@ def process_sequences(seq_df, id_col = 'processid',
 	label - the sequence label column 
 	data - the kmer array frequency as per previous
 	seq - the DNA sequence used to generate the kmer array
+	
+	Arguments
+	---------
+
+	Returns
+	---------
+
+	Examples
+	---------
+
+
 	"""
 
 	#stores tuples of (processid, kingdom, kmer_freqs)
@@ -115,7 +148,18 @@ def shuffle_unison(x, y):
 	"""
 	Shuffle the two input numpy arrays in unison.
 
-	Should be used if you're upsampling wiht the upsample_fragments function
+	Should be used if you're upsampling with the upsample_fragments function
+	
+
+	Arguments
+	---------
+
+	Returns
+	---------
+
+	Examples
+	---------
+
 	"""
 	assert len(x) == len(y)
 	p = np.random.permutation(len(x))
@@ -128,14 +172,24 @@ def alfie_dnn_default(hidden_sizes = [100], dropout = 0.2,
 	Construct a simple neural network for sequence classification. 
 
 
+	Arguments
+	---------
 	hidden_sizes - neuron sizes for the hidden layers
 				n_hidden is implict param - equal to the length of hidden layers list
 	dropout - dropout applied after each hidden layer, for no dropout pass 0 
 	in_shape - the number of predictors this is for 1d inputs
 	n_classes - the number of output classes
+
+	Returns
+	---------
+	out : 
+
+	Examples
+	---------
+
+
 	"""
 	#initiate the model
-
 	model = tf.keras.models.Sequential()
 	#specify the in layer, denoting size
 	model.add(tf.keras.layers.Dense(100, input_shape=(in_shape,) , activation = 'relu'))

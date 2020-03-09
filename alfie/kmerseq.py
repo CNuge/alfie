@@ -1,5 +1,11 @@
 """
 Module containing the KmerFeatures class.
+
+==========
+Classes
+==========
+
+KmerFeatures - A class to represent a DNA sequence and derive kmer measurements.
 """
 
 
@@ -24,10 +30,23 @@ class KmerFeatures:
 
 	Attributes
 	---------
+	name : str, 
+	kmers : int, 
+	sequence : str, 
 
+	
+	labels : 
+	kmer_freqs : 
 
 	Methods
 	---------
+	init : 
+	kmer_dict : 
+
+	keys : 
+	values : 
+	items
+	freq_values :
 
 
 	Examples
@@ -43,7 +62,7 @@ class KmerFeatures:
 	ex_inst.kmer_freqs
 
 	#You can also set kmer counts for a specific value of k
-	ex_inst.get_ks(5) #will build the 5mer dict and populate it
+	ex_inst.change_k(5) #will build the 5mer dict and populate it
 	
 	#
 	ex_inst.keys()
@@ -67,10 +86,10 @@ class KmerFeatures:
 
 		self.k = kmers
 		self.k_dict = self.kmer_dict(k = self.k)
-		self.count_kmers()
+		self.__count_kmers()
 
 
-	def kmer_build(self, k = 4, dna_list = ['A', 'C', 'G', 'T']):
+	def __kmer_build(self, k = 4, dna_list = ['A', 'C', 'G', 'T']):
 		"""
 		recursive construction of all nucleotide kmer combinations 
 		"""
@@ -90,7 +109,7 @@ class KmerFeatures:
 				for n in nts:
 					new = kmer + n
 					new_dna_list.append(new)
-			return self.kmer_build(k, new_dna_list)
+			return self.__kmer_build(k, new_dna_list)
 
 
 	def kmer_dict(self, k = 4):
@@ -98,12 +117,12 @@ class KmerFeatures:
 		builds a dictonary where the keys are all the nt combinations
 		for the specified k and the values are integers
 		"""
-		return {k : 0 for k in self.kmer_build(k)}
+		return {k : 0 for k in self.__kmer_build(k)}
 
 
-	def get_ks(self, k, count = True):
+	def change_k(self, k, count = True):
 		"""
-		user sets or resets k, and the corresponding dict for 
+		resets k, and the corresponding dict for 
 		the given class instance. by default the dict is populated
 		"""
 		#override existing k
@@ -112,10 +131,10 @@ class KmerFeatures:
 		self.k_dict = self.kmer_dict(self.k)
 
 		if count == True:
-			self.count_kmers()
+			self.__count_kmers()
 
 
-	def count_kmers(self):
+	def __count_kmers(self):
 		"""
 		iterate across a the dna string and count the kmer occurances
 		this function returns nothing, just populates the kmer dictonary

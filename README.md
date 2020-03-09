@@ -12,7 +12,7 @@ For increased control, alfie can also be deployed as a module from within Python
 
 ## Installation
 
-Alfie is a python3 program that depends on the python packages: `numpy` (version >= 1.18.1) and `tensorflow` (version>=2.0.0). If you do not have these installed, it is recommended that you install python and the required packages via [anaconda](https://www.anaconda.com/distribution/).
+Alfie is a python3 program that depends on the python packages: `numpy` (version >= 1.18.1), `tensorflow` (version>=2.0.0), and `scikit-learn` (version>=0.21.3). If you do not have these installed, it is recommended that you install python and the required packages via [anaconda](https://www.anaconda.com/distribution/).
 
 To install alfie, download and unzip this repository. From the terminal, enter the downloaded repository and then run the following command:
 ```

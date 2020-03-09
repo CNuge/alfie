@@ -5,13 +5,12 @@ A module with functions for classification and decoding classifications.
 Functions
 ==========
 
-classify_records
+classify_records - Classify a series of DNA sequence records with the designated neural network.
 
-decode_predictions
+decode_predictions - Decode a numeric predictions to a list of strings.
+
 
 """
-
-
 import tensorflow
 import numpy as np
 
@@ -20,7 +19,20 @@ from alfie.kmerseq import KmerFeatures
 
 
 def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
-	"""	classify a series of DNA sequence records with the designated neural network."""
+	"""	Classify a series of DNA sequence records with the designated neural network.
+
+	Arguments
+	---------
+
+	Returns
+	---------
+
+	Examples
+	---------
+	
+	"""
+
+
 	for entry in seq_records:
 		entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], kmers=k)
 
@@ -36,7 +48,7 @@ def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
 def decode_predictions(predictions,
 						tax_list = ["animalia","bacteria","fungi","plantae","protista",]):
 	"""
-	Decode the numeric predictions to a list of strings.
+	Decode a numeric predictions to a list of strings.
 
 	Take in an array of numeric predictions from classify_records() and 
 
@@ -45,6 +57,16 @@ def decode_predictions(predictions,
 	
 	Note: it is best practice for encoding and decoding to treat labels in alphabetical order.
 	(this is the sklearn default)
+	
+	Arguments
+	---------
+
+	Returns
+	---------
+
+	Examples
+	---------
+
 	"""
 	class_dict = {}
 	for i, x in enumerate(tax_list):
