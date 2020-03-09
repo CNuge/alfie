@@ -1,9 +1,16 @@
+"""
+Module containing the KmerFeatures class.
+"""
+
 
 import numpy as np
 
 
 class KmerFeatures:
 	"""
+	A class to represent a DNA sequence and derive kmer measurements.
+
+
 	KmerSeq class - obtain kmer counts for a given dna string.
 	Only valid characters in input are: A, C, G, T.
 	If kmers contain an N or a -, they are skipped over and not counted.
@@ -15,7 +22,16 @@ class KmerFeatures:
 	You can obtain a df with custom size kmers by alternative integer to the kmer
 	argument.
 
-	usage:
+	Attributes
+	---------
+
+
+	Methods
+	---------
+
+
+	Examples
+	---------
 	#initiate a class instance
 	#by default, kmer counts are generated on initialization.
 	ex_inst = KmerFeatures(name = 'ID1',sequence = 'AAATTTGGGATGGGCCCCACAC')
@@ -29,7 +45,7 @@ class KmerFeatures:
 	#You can also set kmer counts for a specific value of k
 	ex_inst.get_ks(5) #will build the 5mer dict and populate it
 	
-	#c
+	#
 	ex_inst.keys()
 	
 	#obtain the kmer count values

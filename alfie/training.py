@@ -1,6 +1,21 @@
 """
-note putting here in case I want to make a training api as well, if this is the case
-then a sklearn dependency is introduced.
+A module with functions to aid in training custom alignment-free DNA classifiers
+
+
+==========
+Functions
+==========
+
+sample_seq
+
+stratified_taxon_split
+
+process_sequences
+
+shuffle_unison
+
+alfie_dnn_default
+
 """
 import tensorflow as tf
 
@@ -13,8 +28,7 @@ from sklearn.model_selection import StratifiedShuffleSplit
 
 def stratified_taxon_split(input_data, class_col, test_size = 0.3, silent = False):
 	"""
-	take a dataframe and conduct Stratified train/test split based of a 
-	user defined categorical column.
+	Conduct a stratified train/test split based of a user defined categorical column.
 	"""
 	if silent == False:
 		print(f'Conducting train/test split, split evenly by: {class_col}')
@@ -34,7 +48,6 @@ def sample_seq(seq, min_size = 200, max_size = 600, n = 1, seed = None):
 	Take a full sequence and return a list of random subsamples.
 
 	Samples will be of a random length form within the defined sizes of the 
-
 	"""
 	#list of output sequences
 	outseqs = []
@@ -60,8 +73,10 @@ def process_sequences(seq_df, id_col = 'processid',
 							seq_col = 'sequence', 
 							label_col = 'kingdom',  kmers=4, **kwargs):
 	"""
+	Conduct subsampling of the sequences and generate kmer information for sequence.
+
+
 	take in a dataframe with dna sequence, label and id information.
-	conduct subsampling of the sequenceS and generate kmer information for each subsample.
 
 	returns a dict of lists: 
 	keys(ids, label, data, seq)
@@ -98,8 +113,9 @@ def process_sequences(seq_df, id_col = 'processid',
 
 def shuffle_unison(x, y):
 	"""
-	shuffle the X and y numpy arrays in unison
-	should be used if you're upsampling wiht the upsample_fragments function
+	Shuffle the two input numpy arrays in unison.
+
+	Should be used if you're upsampling wiht the upsample_fragments function
 	"""
 	assert len(x) == len(y)
 	p = np.random.permutation(len(x))
@@ -109,7 +125,9 @@ def shuffle_unison(x, y):
 def alfie_dnn_default(hidden_sizes = [100], dropout = 0.2,
 						in_shape = 256, n_classes = 5):
 	"""
-	builds a simple deep neural network using the keras wrapper.
+	Construct a simple neural network for sequence classification. 
+
+
 	hidden_sizes - neuron sizes for the hidden layers
 				n_hidden is implict param - equal to the length of hidden layers list
 	dropout - dropout applied after each hidden layer, for no dropout pass 0 

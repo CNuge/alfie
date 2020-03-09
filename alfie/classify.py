@@ -1,3 +1,16 @@
+"""
+A module with functions for classification and decoding classifications.
+
+==========
+Functions
+==========
+
+classify_records
+
+decode_predictions
+
+"""
+
 
 import tensorflow
 import numpy as np

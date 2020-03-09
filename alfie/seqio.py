@@ -1,3 +1,30 @@
+"""
+Sequence input and output functions.
+
+This module contains functions for the reading and writing of sequence data from fasta or fastq
+formatted files. 
+
+==========
+Input functions
+==========
+
+read_fasta
+read_fastq
+
+iter_read_fasta
+iter_read_fastq
+
+
+==========
+Support functions
+==========
+
+file_type
+outfile_dict
+process_fastq_record
+
+"""
+
 import os 
 import copy
 
@@ -43,7 +70,8 @@ def file_type(s):
 def outfile_dict(filename, 
 	labels = ['animalia', 'bacteria', 'fungi', 'plantae', 'protista']):
 	""" 
-	build a dictonary with the output filenames.
+	Build a dictionary of output filenames for classified sequences.
+
 	dict keys are the numeric encodings of the kingdom names
 	"""
 	f_stripped = filename.split('/')[-1]

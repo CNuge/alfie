@@ -5,7 +5,8 @@ with open('requirements.txt') as f:
 	requirements = [x.rstrip() for x in requirements]
 
 long_description = """
-Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode data. 
+alfie: an alignment-free, kingdom level taxonomic classifier for DNA barcode data. 
+
 Alfie classifies sequences using a neural network which takes k-mer frequencies (default k = 4)
 as inputs and makes kingdom level classification predictions. At present, the program contains 
 trained models for classification of cytochrome c oxidase I (COI) barcode sequences to the 
