@@ -8,27 +8,31 @@ formatted files.
 Input functions
 ==========
 
-read_fasta : 
-read_fastq : 
+read_fasta : Read data from a fasta file.
 
-iter_read_fasta :
-iter_read_fastq :
+read_fastq : Read data from a fastq file.
 
+iter_read_fasta : Iteratively read data from fasta file. 
+
+iter_read_fastq : Iteratively read data from fastq file. 
 
 ==========
 Output functions
 ==========
 
-write_fasta :
-write_fastq :
+write_fasta : Write a sequence record, or list of records, to a file in fasta format.
+
+write_fastq : Write a sequence record, or list of records, to a file in fastq format.
 
 ==========
 Support functions
 ==========
 
 file_type : Take in a filename and determine if the extension indicates a fasta or fastq file.
-outfile_dict :
-process_fastq_record :
+
+outfile_dict : Build a dictionary of output filenames for classified sequences.
+
+process_fastq_record : Create a dictionary from a list of the four lines of a fastq record.
 
 """
 
@@ -128,28 +132,27 @@ def outfile_dict(filename,
 
 def read_fasta(filename):
 	""" 
-	A read function that takes the data in from a fasta file.
-	Outputs the data to a list of records in Bio.SeqRecord format
-
-
+	Read data from a fasta file.
+	
 	Arguments
 	---------
-
-	filename
+	filename : str, the path to a file in fasta format.
 
 	Returns
-	---------
+	---------	
+	out : list, a list of sequence records, where each record is a dictionary
+	with the keys 'name' (identifying string - header line) and 
+	'sequence' (the sequence line of the fasta entry).
 
 	Examples
 	---------
 	# load the path to the alfie example file
 	>>> from alfie import ex_fasta_file
-
+	# read in the data
 	>>> data = read_fasta(ex_fasta_file)
-	#data are a list of dictionaries with the keys 'name' and 'sequence'
+	# data are a list of dictionaries with the keys 'name' and 'sequence'
 	>>> data[0].keys()
 	dict_keys(['name', 'sequence'])
-	
 	"""
 	seq_records = []
 
@@ -174,20 +177,34 @@ def read_fasta(filename):
 
 def iter_read_fasta(filename, batch = 1000):
 	"""	
-	iteratively read in a fasta file, yielding batches of sequences. 
-	batch size defined as argument, default is 1000 sequences
-
-
+	Iteratively read data from fasta file. 
+	
 	Arguments
 	---------
+	filename : str, the path to a file in fasta format.
+
+	batch : int, the number of sequence records to be returned in each batch.
+		The default is 1000.
 
 	Returns
-	---------
+	---------	
+	out : generator, will yield lists of sequence records for the
+	given batch size. 
+	The lists contain sequence records in dictionary format,
+	with the keys 'name' (identifying string - header line) and 
+	'sequence' (the sequence line of the fasta entry).
 
 	Examples
 	---------
-
-
+	# load the path to the alfie example file
+	>>> from alfie import ex_fasta_file
+	# read in the data
+	>>> data = iter_read_fasta(ex_fasta_file, batch = 10)
+	# data is a generator, get the next batch
+	>>> x = next(data)
+	# each record in the list is a dictionary
+	>>> x[0]
+	dict_keys(['name', 'sequence'])
 	"""
 	seq_records = []
 
@@ -217,40 +234,36 @@ def iter_read_fasta(filename, batch = 1000):
 
 
 def process_fastq_record(lines):
-	""" 
-	Take the four lines of a fastq record and create a dictonary for the record
-
-
-	Arguments
-	---------
-
-	Returns
-	---------
-
-	Examples
-	---------
-
-	"""
+	""" Create a dictionary from a list of the four lines of a fastq record."""
 	ks = ['name', 'sequence', 'strand', 'quality']
 	return {k: v for k, v in zip(ks, lines)}
 
 
 def read_fastq(filename):
 	""" 
-	This function takes a fastq filename and will read in the records in the file,
-	constructing a dictonary for each record with the keys: 'name', 'sequence', 'optional', 'quality'.
-		
-	A list containing the dictonaries for all of the records will be returned.		
-
+	Read data from a fastq file.
+	
 	Arguments
 	---------
+	filename : str, the path to a file in fastq format.
 
 	Returns
-	---------
+	---------	
+	out : list, a list of sequence records, where each record is a dictionary
+	with the keys: 'name' (identifying string - header line) and 
+	'sequence' (the sequence line of the fastq entry), 'strand' ('+'' or '-''), 
+	and 'quality' (the PHRED quality string).
 
 	Examples
 	---------
-
+	# load the path to the alfie example file
+	>>> from alfie import ex_fastq_file
+	# read in the file
+	>>> data = read_fastq(ex_fastq_file)
+	# data are a list of dictionaries with the keys:
+	# 'name', 'sequence', 'strand', and 'quality'
+	>>> data[0].keys()
+	dict_keys(['name', 'sequence', 'strand', 'quality'])
 	"""
 	records = []
 	n = 4
@@ -267,19 +280,36 @@ def read_fastq(filename):
 
 
 def iter_read_fastq(filename, batch = 1000):
-	""" 
-	iteratively read in a fastq file, yielding batches of sequences. 
-	batch size defined as argument, default is 1000 sequences
-
+	"""	
+	Iteratively read data from fastq file. 
+	
 	Arguments
 	---------
+	filename : str, the path to a file in fastq format.
+
+	batch : int, the number of sequence records to be returned in each batch.
+		The default is 1000.
 
 	Returns
-	---------
+	---------	
+	out : generator, will yield lists of sequence records for the
+	given batch size. 
+	The lists contain sequence records in dictionary format,
+	with the keys: 'name' (identifying string - header line) and 
+	'sequence' (the sequence line of the fastq entry), 'strand' ('+'' or '-''), 
+	and 'quality' (the PHRED quality string).
 
 	Examples
 	---------
+	# load the path to the alfie example file
+	>>> from alfie import ex_fastq_file
 
+	>>> data = iter_read_fasta(ex_fastq_file, batch = 10)
+	#data is a generator, get the next batch
+	>>> x = next(data)
+	#each record in the list is a dictionary
+	>>> x[0]
+	dict_keys(['name', 'sequence', 'strand', 'quality'])
 	"""
 	records = []
 	n = 4
@@ -303,27 +333,39 @@ def iter_read_fastq(filename, batch = 1000):
 
 def write_fasta(entry, filename, append_seq = True):
 	"""
-	Takes a sequence record or list of sequence records. 
-	Sequence record in dictonary format with the keys: 'name', 'sequence'
-	Additional keys are permitted but unused.
-
-	Will write the sequence to file, by default the sequence is appended to exiting entries,
-	passing append_seq = False will overwrite the current data.
-
-
+	Write a sequence record, or list of records, to a file in fasta format.
 
 	Arguments
 	---------
+	entry : list or dict, a sequence record or list of sequence records. Each sequence record 
+		in dictionary format with the keys: 'name' (becomes header line of fasta), 
+		'sequence'(becomes the second line of the fasta).
+	
+	filename : str, the path to the output file. Must have extension '.fasta' or '.fa'.
+
+	append_seq : bool, indicate if sequence should be appended to existing data in the file.
+		Default is True. If False, the existing file is overwritten where appliciable.
 
 	Returns
 	---------
+	out : No return, data written to file.
 
 	Examples
 	---------
+	# single sequence output
+	>>> seq_record = {"name" : "example1", "sequence" : "ATGCATGC"}
+	
+	>>> write_fasta(seq_record, "example_out.fasta")
 
+	# multi sequence output
+	>>> seq_records = [{"name" : "example1b", "sequence" : "ATGCATGC"},
+	>>>					{"name" : "example2", "sequence" : "GGGGGGGAAAAA"} ]
+	
+	# append_seq = False, therefore overwrite the previous output
+	>>> write_fasta(seq_records, "example_out.fasta", append_seq = False)
 	"""
 	if file_type(filename) != 'fasta':
-		raise ValueError("output file does not have fasta extension.")
+		raise ValueError("Specified output file does not have fasta extension.")
 
 	if type(entry) == dict:
 		entry = [entry]
@@ -345,23 +387,39 @@ def write_fasta(entry, filename, append_seq = True):
 
 def write_fastq(entry, filename, append_seq = True):
 	"""
-	Takes a sequence record or list of sequence records. 
-	Sequence record in dictonary format with the keys: 'name', 'sequence', 'plus', 'quality'
-	Additional keys are permitted but unused.
-
-	Will write the sequence to file, by default the sequence is appended to exiting entries,
-	passing append_seq = False will overwrite the current data.
-
+	Write a sequence record, or list of records, to a file in fastq format.
 
 	Arguments
 	---------
+	entry : list or dict, a sequence record or list of sequence records. Each sequence record 
+		in dictionary format with the keys: 'name', 'sequence', 'strand', and 'quality'.
+		The values are added to the corresponding line of the fastq record.
+	
+	filename : str, the path to the output file. Must have extension '.fastq' or '.fq'.
+
+	append_seq : bool, indicate if sequence should be appended to existing data in the file
+		Default is True. If False, the existing file is overwritten where appliciable.
 
 	Returns
 	---------
+	out : No return, data written to file.
 
 	Examples
 	---------
+	# single sequence output
+	>>> seq_record = {"name" : "example1", "sequence" : "ATGCATGC", 
+	>>>					"strand" : "+", "quality" : "~~~~~~~~"}
+	
+	>>> write_fastq(seq_record, "example_out.fastq")
 
+	# multi sequence output
+	>>> seq_records = [{"name" : "example1b", "sequence" : "ATGCATGC", 
+	>>>					"strand" : "+", "quality" : "~~~~~~~~"},
+	>>>					{"name" : "example2", "sequence" : "GGGGGGGAAAAA", 
+	>>>					"strand" : "+", "quality" : "~~~9~~~+~*~~"}]
+	
+	# append_seq = False, therefore overwrite the previous output
+	>>> write_fastq(seq_records, "example_out.fastq", append_seq = False)
 	"""
 	if file_type(filename) != 'fastq':
 		raise ValueError("output file does not have fastq extension.")
@@ -372,7 +430,7 @@ def write_fastq(entry, filename, append_seq = True):
 	outstring = ''
 
 	for x in entry:
-		str_x = f"{x['name']}\n{x['sequence']}\n{x['strand']}\n{x['quality']}\n"
+		str_x = f"@{x['name']}\n{x['sequence']}\n{x['strand']}\n{x['quality']}\n"
 		outstring+=str_x
 
 	if append_seq == True:
