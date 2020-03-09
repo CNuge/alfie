@@ -7,9 +7,7 @@ from alfie.kmerseq import KmerFeatures
 
 
 def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
-	"""
-	take a series of DNA sequence records and classify them with the 
-	"""
+	"""	classify a series of DNA sequence records with the designated neural network."""
 	for entry in seq_records:
 		entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], kmers=k)
 
@@ -25,8 +23,9 @@ def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
 def decode_predictions(predictions,
 						tax_list = ["animalia","bacteria","fungi","plantae","protista",]):
 	"""
-	take in an array of numeric predictions from classify_records() and decode the numeric
-	predictions to a list of strings.
+	Decode the numeric predictions to a list of strings.
+
+	Take in an array of numeric predictions from classify_records() and 
 
 	Default decoding to kingdom. A custom tax_list with the classifications corresponding
 	to a custom neural network's numeric precidions can be procided as well.

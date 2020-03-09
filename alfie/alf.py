@@ -11,9 +11,10 @@ from alfie.classify import classify_records
 
 def main():
 	parser  = argparse.ArgumentParser(prog = "alfie",
-		description = "alfie:\n"+\
-		"a command line tool for kingdom-level classification and processing of DNA\n"+\
-		"in fasta or fastq format")
+		description = """
+		alfie:\n
+		a command line tool for alignment-free kingdom-level classification of DNA.
+		""")
 	parser.add_argument("-f", "--file", type = str,  
 		help = "The file of input sequences to classify.\n"+\
 		"Input can be either fasta or fastq formatfile type inferred from the extension.\n"+\

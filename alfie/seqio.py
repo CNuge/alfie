@@ -3,10 +3,30 @@ import copy
 
 def file_type(s):
 	"""
-	Take in a filename passed to alfie via the command line.
-	Determine if the file type is fasta, fq or error
-	"""
+	Take in a filename and determine if the extension indicates a fasta or fastq file.
 
+	Arguments
+	---------
+	s : str, a filename string
+
+	Returns
+	---------
+	out : string, either 'fasta' or 'fastq' if file has an accepted extension, or ValueError.
+
+	Examples
+	---------
+	>>> file_type("example_file.fasta")
+	"fasta"
+	>>> file_type("example_file.fa")
+	"fasta"
+	>>> file_type("example_file.fastq")
+	"fastq"
+	>>> file_type("example_file.fq")
+	"fastq"
+	>>> file_type("example_file.txt")
+	ValueError: Input file must be in fasta or fastq format. Accepted file extensions: fa, fq, fasta, or fastq.	
+
+	"""
 	suffix = s.split(".")[-1]
 
 	if suffix == "fa" or suffix == "fasta":
@@ -16,8 +36,8 @@ def file_type(s):
 		return "fastq"
 
 	else:
-		raise ValueError("input file must be in fasta or fastq format."+\
-			"Accepted file extensions: fa, fq, fasta, or fastq ")
+		raise ValueError("Input file must be in fasta or fastq format. "+\
+			"Accepted file extensions: fa, fq, fasta, or fastq.")
 
 
 def outfile_dict(filename, 
