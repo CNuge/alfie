@@ -8,88 +8,80 @@ Classes
 KmerFeatures : A class to represent a DNA sequence and derive kmer measurements.
 
 """
-
-
 import numpy as np
-
 
 class KmerFeatures:
 	"""
 	A class to represent a DNA sequence and derive kmer measurements.
 
-
-	KmerSeq class - obtain kmer counts for a given dna string.
-	Only valid characters in input are: A, C, G, T.
-	If kmers contain an N or a -, they are skipped over and not counted.
-	All other characters will produce an error.
-
-	The default behaviour is to produce an array of kmer frequencies for the
-	kmer size 4.
-	Kmer frequencies are relative to one another, i.e. the array will sum to 1.
-	You can obtain a df with custom size kmers by alternative integer to the kmer
-	argument.
-
 	Attributes
 	---------
-	name : str,
+	name : str, the identifier for the sequence.
 
-	kmers : int, 
+	k : int, the size of k-mers (substrings of length k) to count. Default is 4.
 	
-	sequence : str, 
-
-		
-	labels : 
+	sequence : str, the nucleotide sequence to generate k-mer counts from. Only counted characters 
+		in input are: A, C, G, T. The chatacters N and - are also permitted, but all substrings containing
+		these characters are not counted. Presence of any other characters will produce an error.
 	
-	kmer_freqs : 
+	labels : numpy.ndarray, the different k-mers for the given size of k. Order of k-mers
+		is alphabetical and the labels order corresponds to the order of the kmer_freqs values. 
+	
+	kmer_freqs : numpy.ndarray, the frequencies of the different k-mers. Frequency order
+		corresponds to the order of the labels.
 
 	Methods
 	---------
-	init : 
-	kmer_dict : 
+	init : takes in a name, sequence, and k value and generates kmer counts and frequency data.
 
-	keys : 
-	values : 
-	items
-	freq_values :
+	keys : list, the different k-mers for the given size of k. Order of k-mers
+		is alphabetical and the labels order corresponds to the order of the kmer_freqs values. 
+	
+	values : list, the counts of the different kmers
 
+	freq_values : the frequencies of the different kmers. Calculated as count/total number
+		of recorded kmers. Note this means that any substrings with "N" or "-" in them do
+		not contribute to the denominator
+ 	
+	items : list, the (key, value) pairs of kmer counts. 
+	
 
 	Examples
 	---------
 	#initiate a class instance
-	#by default, kmer counts are generated on initialization.
-	ex_inst = KmerFeatures(name = 'ID1',sequence = 'AAATTTGGGATGGGCCCCACAC')
+	#by kmer counts are generated on initialization, by default for k = 4.
+	>>> ex_inst = KmerFeatures(name = 'ID1', sequence = 'AAATTTGGGATGGGCCCCACAC')
 
-	#obtain the kmer names
-	ex_inst.labels #numpy array with the kmer codings
-
-	#obtain the kmer frequencies
+	# numpy array with the kmer labels
+	ex_inst.labels 
+	# numpy array with the kmer frequencies
 	ex_inst.kmer_freqs
 
-	#You can also set kmer counts for a specific value of k
-	ex_inst.change_k(5) #will build the 5mer dict and populate it
+	# count data can be accessed like a dictionary, data returned in list format
+	# keys in list format
+	>>> ex_inst.keys()
 	
-	#
-	ex_inst.keys()
-	
-	#obtain the kmer count values
-	ex_inst.values()
+	# obtain a list of kmer counts
+	>>>	ex_inst.values()
 
-	#or the frequencies
-	ex_inst.freq_values()
+	#or get the values as frequencies
+	>>> ex_inst.freq_values()
 	
 	#obtain the kmer name-count item pairs
-	ex_inst.items()
+	>>> ex_inst.items()
 
-	
+	# You can change the kmer size, and a new set of kmer counts will be 
+	# generated
+	>>> ex_inst.change_k(2)
+	>>> ex_inst.items()
 	"""
-	def __init__(self, name, sequence, kmers = 4):
+	def __init__(self, name, sequence, k = 4):
 
 		self.name = name
-		self.kmers = kmers
+		self.k = k
 		self.seq = sequence.upper()
 
-		self.k = kmers
-		self.k_dict = self.kmer_dict(k = self.k)
+		self.k_dict = self.__kmer_dict(k = self.k)
 		self.__count_kmers()
 
 
@@ -116,7 +108,7 @@ class KmerFeatures:
 			return self.__kmer_build(k, new_dna_list)
 
 
-	def kmer_dict(self, k = 4):
+	def __kmer_dict(self, k = 4):
 		"""
 		builds a dictonary where the keys are all the nt combinations
 		for the specified k and the values are integers
@@ -132,7 +124,7 @@ class KmerFeatures:
 		#override existing k
 		self.k = k
 		#build a new empty dictonary
-		self.k_dict = self.kmer_dict(self.k)
+		self.k_dict = self.__kmer_dict(self.k)
 
 		if count == True:
 			self.__count_kmers()

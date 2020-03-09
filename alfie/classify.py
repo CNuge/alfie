@@ -19,7 +19,8 @@ from alfie.kmerseq import KmerFeatures
 
 
 def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
-	"""	Classify a series of DNA sequence records with the designated neural network.
+	"""
+	Classify a series of DNA sequence records with the designated neural network.
 
 	Arguments
 	---------
@@ -34,7 +35,7 @@ def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
 
 
 	for entry in seq_records:
-		entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], kmers=k)
+		entry['kmer_data'] = KmerFeatures(entry['name'], entry['sequence'], k=k)
 
 	vals = np.array([seq_records[i]['kmer_data'].kmer_freqs for i in range(len(seq_records))])
 	

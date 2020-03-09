@@ -93,7 +93,7 @@ def sample_seq(seq, min_size = 200, max_size = 600, n = 1, seed = None):
 
 def process_sequences(seq_df, id_col = 'processid',
 							seq_col = 'sequence', 
-							label_col = 'kingdom',  kmers=4, **kwargs):
+							label_col = 'kingdom',  k=4, **kwargs):
 	"""
 	Conduct subsampling of the sequences and generate kmer information for sequence.
 
@@ -135,7 +135,7 @@ def process_sequences(seq_df, id_col = 'processid',
 		sub_seqs = sample_seq(seq, **kwargs)
 
 		for s in sub_seqs:
-			k_seq = KmerFeatures(processid, s, kmers=kmers)
+			k_seq = KmerFeatures(processid, s, k=kmers)
 			samples['ids'].append(processid)
 			samples['labels'].append(label)
 			samples['data'].append(k_seq.kmer_freqs)
