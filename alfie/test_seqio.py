@@ -1,6 +1,7 @@
 
 #import os 
 
+import os
 import pytest
 
 from alfie.seqio import file_type, outfile_dict, read_fasta, read_fastq
@@ -8,13 +9,6 @@ from alfie import ex_fasta_file, ex_fastq_file
 
 """
 #TODO - unit tests for write - see if buffer or make and destroy files is best practice
-#when you add the write tests, do this in pytest
-	def tearDown(self):
-		#After unit tests, remove the temporary outputs.
-		try:
-			os.rmdir("alfie_out")
-		except OSError:
-			pass
 """
 
 def test_file_type():
@@ -53,6 +47,8 @@ def test_outfile_builder():
 	out2 = outfile_dict("in_data/test.fastq", folder_prefix = 'diff_place/') 
 	assert out2 == expected_kingdom_dict2
 
+	os.rmdir("alfie_out")
+	os.rmdir("diff_place")
 
 def test_fasta_reader():
 	""" Test the fasta reader functions."""
