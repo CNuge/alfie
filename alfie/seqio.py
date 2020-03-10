@@ -79,8 +79,8 @@ def file_type(s):
 
 
 def outfile_dict(filename, 
-	labels = ["animalia", "bacteria", "fungi", "plantae", "protista"],
-	folder_prefix = "alfie_out/"):
+					labels = ["animalia", "bacteria", "fungi", "plantae", "protista"],
+					folder_prefix = "alfie_out/"):
 	""" 
 	Build a dictionary of output filenames for classified sequences.
 

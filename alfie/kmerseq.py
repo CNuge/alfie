@@ -84,7 +84,6 @@ class KmerFeatures:
 		self.k_dict = self.__kmer_dict(k = self.k)
 		self.__count_kmers()
 
-
 	def __kmer_build(self, k = 4, dna_list = ['A', 'C', 'G', 'T']):
 		"""Recursive construction of all nucleotide kmer combinations."""
 		
@@ -106,11 +105,9 @@ class KmerFeatures:
 					new_dna_list.append(new)
 			return self.__kmer_build(k, new_dna_list)
 
-
 	def __kmer_dict(self, k = 4):
 		"""Build an dictionary of all string combos for size k, values all 0. """
 		return {k : 0 for k in self.__kmer_build(k)}
-
 
 	def change_k(self, k, count = True):
 		"""Reset k and by default populate the new dictionary. """
@@ -121,7 +118,6 @@ class KmerFeatures:
 
 		if count == True:
 			self.__count_kmers()
-
 
 	def __count_kmers(self):
 		"""Iterate across a the dna string and count the kmer occurances."""
@@ -134,7 +130,6 @@ class KmerFeatures:
 	def keys(self):
 		"""Returns a list of the kmer keys, in sorted alphabetical order."""
 		return [k for k , v in sorted(self.k_dict.items())]
-
 
 	def values(self):
 		"""A list of the kmer count values, maps to keys in alphabetical order."""
