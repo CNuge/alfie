@@ -5,10 +5,11 @@ python:
 
 install:
   - pip install -r requirements.txt
+  - pip install codecov
 
 script:
   - python setup.py install
-  - pytest -p no:warnings
+  - pytest -p no:warnings #silence the internal tensorflow warnings
 
 after_success:
     - codecov
