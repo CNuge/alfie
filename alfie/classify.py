@@ -11,7 +11,6 @@ decode_predictions - Decode numeric predictions to strings.
 
 
 """
-import tensorflow
 import numpy as np
 
 from alfie import dnn_k_four

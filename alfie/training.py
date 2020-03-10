@@ -19,7 +19,10 @@ stratified_taxon_split : Conduct a stratified train/test split based on a user d
 
 import numpy as np
 import pandas as pd
-import tensorflow as tf
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+
 from sklearn.model_selection import StratifiedShuffleSplit
 
 from alfie.kmerseq import KmerFeatures
@@ -333,19 +336,19 @@ def alfie_dnn_default(hidden_sizes = [100], dropout = 0.2,
 	True
 	"""
 	#initiate the model
-	model = tf.keras.models.Sequential()
+	model = Sequential()
 	#specify the in layer, denoting size
-	model.add(tf.keras.layers.Dense(100, input_shape=(in_shape,) , activation = 'relu'))
+	model.add(Dense(100, input_shape=(in_shape,) , activation = 'relu'))
 
 	n_hidden = len(hidden_sizes)
 	
 	for i in range(0,n_hidden):
-		model.add(tf.keras.layers.Dense(hidden_sizes[i], activation = 'relu'))
+		model.add(Dense(hidden_sizes[i], activation = 'relu'))
 		if dropout != 0:
-			model.add(tf.keras.layers.Dropout(dropout))
+			model.add(Dropout(dropout))
 
 
-	model.add(tf.keras.layers.Dense(n_classes, activation = 'softmax'))
+	model.add(Dense(n_classes, activation = 'softmax'))
 
 	model.compile(loss = 'sparse_categorical_crossentropy', 
 						optimizer = 'adam', 

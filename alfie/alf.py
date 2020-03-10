@@ -1,7 +1,8 @@
 
 import argparse
 import numpy as np
-import tensorflow as tf
+
+from tensorflow.keras.models import load_model
 
 from alfie import dnn_k_four
 
@@ -62,7 +63,7 @@ def main():
 		dnn_model = dnn_k_four
 	else:
 		# load the tensorflow model
-		dnn_model = tf.keras.models.load_model(model_file)
+		dnn_model = load_model(model_file)
 
 	#model = '4mer'
 	#file = '../data/example_data.fasta'
