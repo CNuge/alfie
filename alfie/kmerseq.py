@@ -79,12 +79,24 @@ class KmerFeatures:
 
 		self.name = name
 		self.k = k
-		self.seq = sequence.upper()
+		
+		up_seq = sequence.upper()
+		if self.__check_seq(up_seq) == True:
+			self.seq = up_seq
 
 		self.k_dict = self.__kmer_dict(k = self.k)
 		self.__count_kmers()
 
-	def __kmer_build(self, k = 4, dna_list = ['A', 'C', 'G', 'T']):
+	def __check_seq(self, seq):
+		"""Check the input sequence for invalid characters."""
+		allowed = {"A", "C", "G", "T", "N", "-"}
+		in_set = set(seq)
+
+		if in_set.issubset(allowed) == False:
+			raise ValueError("Unallowed characters in input sequence")
+		return True		
+
+	def __kmer_build(self, k = 4, dna_list = ["A", "C", "G", "T"]):
 		"""Recursive construction of all nucleotide kmer combinations."""
 		
 		# all the nucleotides to be appended to new kmers

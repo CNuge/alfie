@@ -92,7 +92,6 @@ def decode_predictions(predictions,
 	
 	Arguments
 	---------
-
 	predictions : list like object, a list of numeric encoded predictions.
 
 	tax_list : list, a list of strings indicating what the numeric predictions should
@@ -104,7 +103,6 @@ def decode_predictions(predictions,
 	
 	Examples
 	---------
-	
 	#load example data
 	>>> from alfie import example_fasta
 	#generate predictions for examples, using default kingdom model
