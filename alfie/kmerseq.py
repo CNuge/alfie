@@ -86,9 +86,8 @@ class KmerFeatures:
 
 
 	def __kmer_build(self, k = 4, dna_list = ['A', 'C', 'G', 'T']):
-		"""
-		recursive construction of all nucleotide kmer combinations 
-		"""
+		"""Recursive construction of all nucleotide kmer combinations."""
+		
 		# all the nucleotides to be appended to new kmers
 		# note - doing this in alpha order, so keys are pre-sorted
 		nts = ['A', 'C', 'G', 'T']
@@ -109,18 +108,12 @@ class KmerFeatures:
 
 
 	def __kmer_dict(self, k = 4):
-		"""
-		builds a dictonary where the keys are all the nt combinations
-		for the specified k and the values are integers
-		"""
+		"""Build an dictionary of all string combos for size k, values all 0. """
 		return {k : 0 for k in self.__kmer_build(k)}
 
 
 	def change_k(self, k, count = True):
-		"""
-		resets k, and the corresponding dict for 
-		the given class instance. by default the dict is populated
-		"""
+		"""Reset k and by default populate the new dictionary. """
 		#override existing k
 		self.k = k
 		#build a new empty dictonary
@@ -131,10 +124,7 @@ class KmerFeatures:
 
 
 	def __count_kmers(self):
-		"""
-		iterate across a the dna string and count the kmer occurances
-		this function returns nothing, just populates the kmer dictonary
-		"""
+		"""Iterate across a the dna string and count the kmer occurances."""
 		for i in range(len(self.seq)-(self.k-1)):
 			subseq = self.seq[i:i+self.k]
 
@@ -142,20 +132,16 @@ class KmerFeatures:
 				self.k_dict[subseq] +=1
 
 	def keys(self):
-		""" 
-		returns a list of the kmer keys, in sorted alphabetical order
-		"""
+		"""Returns a list of the kmer keys, in sorted alphabetical order."""
 		return [k for k , v in sorted(self.k_dict.items())]
 
 
 	def values(self):
-		"""
-		returns a list of the kmer values, corresponding to the keys in sorted 
-		alphabetical order
-		"""
+		"""A list of the kmer count values, maps to keys in alphabetical order."""
 		return [v for k , v in sorted(self.k_dict.items())]
 
 	def freq_values(self):
+		"""Returns an array of kmer frequencies. """
 		vals = np.array(self.values())
 		total_count = sum(vals)
 		if total_count == 0:
@@ -167,11 +153,11 @@ class KmerFeatures:
 
 	@property
 	def labels(self):
-		""" the labels of the kmer freq columns """
+		"""The string labels of the kmer frequencies."""
 		return np.array(self.keys())
 
 	@property
 	def kmer_freqs(self):
-		""" the kmer frequency values """
+		"""A numpy array of kmer frequency values."""
 		return np.array(self.freq_values())
 
