@@ -12,6 +12,7 @@ script:
   - pytest -p no:warnings
   #- pytest --cov-report xml --cov=alfie tests/ -p no:warnings
   # -p to silence the internal tensorflow warnings
+  # try using this: https://pypi.org/project/pytest-cov/
 
 after_success:
     - codecov
