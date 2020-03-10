@@ -8,8 +8,7 @@ install:
 
 script:
   - python setup.py install
-  - python alfie/test_kmerseq.py
-  - python alfie/test_seqio.py
+  - pytest -p no:warnings
 
 after_success:
     - codecov
