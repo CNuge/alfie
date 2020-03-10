@@ -9,7 +9,8 @@ install:
 
 script:
   - python setup.py install
-  - pytest --cov-report xml --cov=alfie tests/ -p no:warnings
+  - pytest -p no:warnings
+  #- pytest --cov-report xml --cov=alfie tests/ -p no:warnings
   # -p to silence the internal tensorflow warnings
 
 after_success:
