@@ -25,7 +25,7 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from alfie.kmerseq import KmerFeatures
 
 
-def stratified_taxon_split(input_data, class_col, test_size = 0.3, silent = False):
+def stratified_taxon_split(input_data, class_col, test_size = 0.3, silent = False, seed = None):
 	"""
 	Conduct a stratified train/test split based on a user defined categorical column.
 	
@@ -44,6 +44,9 @@ def stratified_taxon_split(input_data, class_col, test_size = 0.3, silent = Fals
 	test_size : double, the proportion of the input data to be included in the test split. 
 
 	silent : bool, should the split criteria be echoded, defualt is True.
+
+	seed : int, a random seed for repeatable random sampling. Default is None.
+
 
 	Returns
 	---------
@@ -68,7 +71,7 @@ def stratified_taxon_split(input_data, class_col, test_size = 0.3, silent = Fals
 		print(f'Conducting train/test split, split evenly by: {class_col}')
 
 	#split off a test/valid set, 30% of the data total
-	strat_index = StratifiedShuffleSplit(n_splits=1, test_size=test_size, random_state=1738)
+	strat_index = StratifiedShuffleSplit(n_splits=1, test_size=test_size, random_state=seed)
 
 	for train_index, test_valid_index in strat_index.split(input_data, input_data[class_col]):
 		train, test = input_data.loc[train_index], input_data.loc[test_valid_index] 
@@ -95,7 +98,7 @@ def sample_seq(seq, min_size = 200, max_size = 600, n = 1, seed = None):
 	n : int, the number of random samples to generte from each input sequence.
 		Default is 1 (no upsampling).
 
-	seed : int, a random seed for repeatable random sampling.
+	seed : int, a random seed for repeatable random sampling. Default is None.
 
 	Returns
 	---------
@@ -192,9 +195,10 @@ def process_sequences(seq_df, id_col = 'processid',
 	Examples
 	---------
 	#build a dataframe of artifical data
-	>>> ex_dat = pd.DataFrame({"processid" : ["ex1", "ex2", "ex3", "ex4", "ex5",],
-	>>>						"sequence" : ["AAAAAG" * 50 , "AAATAA" * 50, "AAGAAA" * 50, "TTTTAT" * 50, "TCTTCT" * 50],
-	>>>						"kingdom" : ["animalia", "bacteria", "fungi", "plantae", "protista"]})
+	>>> ex_dat = pd.DataFrame({
+	>>>		"processid" : ["ex1", "ex2", "ex3", "ex4", "ex5"],
+	>>>		"sequence" : ["AAAAAG"*50, "AAATAA"*50, "AAGAAA"*50, "TTTTAT"*50, "TCTTCT"*50],
+	>>>		"kingdom" : ["animalia", "bacteria", "fungi", "plantae", "protista"]})
 
 	#process the example data with defaults
 	>>> out_dat = process_sequences(ex_dat)
@@ -256,7 +260,7 @@ def shuffle_unison(x, y, seed = None):
 
 	y : np.array, the second array to shuffle
 
-	seed : int, a random seed for repeatable random sampling.
+	seed : int, a random seed for repeatable random sampling. Default is None.
 
 	Returns
 	---------
