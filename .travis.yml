@@ -12,17 +12,13 @@ install:
   - python setup.py install
 
 script:
-
   - pytest --cov-report xml --cov=alfie alfie/tests/ -p no:warnings
-  #- pytest --cov-report xml --cov=alfie tests/ -p no:warnings
-  # -p to silence the internal tensorflow warnings
-  # try using this: https://pypi.org/project/pytest-cov/
-
-  #or:
-  #- python3 -m pytest -p no:warnings  
+  # -p flag is to silence the internal tensorflow warnings
+  # --cov-report to xml to interface with codecov
+  # --cov says check the coverage of alfie with the tests in the folder: alfie/tests/ 
 
 after_success:
     - codecov
 
 notifications:
-  email: false
+  email: false #don't @ me trav
