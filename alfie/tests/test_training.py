@@ -24,6 +24,10 @@ def test_split():
 	assert test.shape == (5, 2)
 	assert list(test.index) == [15, 21, 7, 11, 8]
 
+	#resplit to test the print line
+	train, test = training.stratified_taxon_split(data, class_col = "phylum", 
+			test_size = .2, silent = True, seed = 1738)
+
 
 def test_sample_seq():
 
@@ -39,6 +43,9 @@ def test_sample_seq():
  					'TTTTTTTTGGGGGGGGGGCCCCCCCCCCAAAAAAAAAATTTTTTTTTTGGGG']
 
 	assert out2 == expected2
+
+	with pytest.raises(ValueError):
+		training.sample_seq("ATGA", min_size = 100)
 
 
 def test_process_sequences():
