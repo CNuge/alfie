@@ -1,4 +1,4 @@
-
+import sys
 import argparse
 import numpy as np
 
@@ -10,7 +10,7 @@ import alfie.seqio as seqio
 from alfie.classify import classify_records
 
 
-def main():
+def alfie_parser(args):
 	parser  = argparse.ArgumentParser(prog = "alfie",
 		description = """
 		alfie:\n
@@ -46,13 +46,18 @@ def main():
 		"Custom classes should be passed as a single string, in alphabetical order and comma delimited"+\
 		"these inputs will be used as the prefixes for the output files generated.")
 
-	args = parser.parse_args()
+	return parser.parse_args(args)
 
-	file = args.file
-	model_file = args.model
-	kmer = args.kmer
-	batch = args.batch
-	klasses = args.classes
+
+def main():
+
+	parsed_args = alfie_parser(sys.argv[1:])
+
+	file = parsed_args.file
+	model_file = parsed_args.model
+	kmer = parsed_args.kmer
+	batch = parsed_args.batch
+	klasses = parsed_args.classes
 
 	if file == None:
 		raise ValueError("must specify an input data file with the flag -f")
