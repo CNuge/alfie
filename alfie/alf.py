@@ -61,19 +61,12 @@ def main():
 
 	if file == None:
 		raise ValueError("must specify an input data file with the flag -f")
-	if model_file == None:
-		raise ValueError("must specify an input model file with the flag -m")
 	
 	if model_file == '4mer':
 		dnn_model = dnn_k_four
 	else:
 		# load the tensorflow model
 		dnn_model = load_model(model_file)
-
-	#model = '4mer'
-	#file = '../data/example_data.fasta'
-	#file = '../data/example_data.fastq'
-
 
 	#check if fasta or fastq input
 	ftype = seqio.file_type(file)
@@ -84,7 +77,6 @@ def main():
 	else:
 		labels = klasses.split( ',')
 		class_outfiles = seqio.outfile_dict(file, labels)
-
 
 	if ftype == 'fasta': 
 		if batch != 0:
