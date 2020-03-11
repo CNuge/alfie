@@ -18,7 +18,7 @@ This is an effective means of separating contaminant sequences in a DNA metabarc
 environmental DNA dataset from sequences of interest.
 
 For increased control, alfie can also be deployed as a module from within Python. The alfie 
-module contains functions that can aid a user in the training and application of a custom 
+package also contains functions that can aid a user in the training and application of a custom 
 alignment-free classifier, which allows the program to be applied to different DNA barcodes 
 (or genes) or on different taxonomic levels.
 """
