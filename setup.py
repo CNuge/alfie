@@ -55,12 +55,6 @@ python3 setup.py install
 alfie -h
 
 #can check to see if functions available with:
-
 from alfie.kmerseq import KmerFeatures
-
 ?KmerFeatures
-
-
-^ all the above works, but it is not storing the model in the executable, 
-need a way to make this get installed into the package.
 """
