@@ -9,7 +9,6 @@ classify_records - Classify a series of DNA sequence records with the designated
 
 decode_predictions - Decode numeric predictions to strings.
 
-
 """
 import numpy as np
 

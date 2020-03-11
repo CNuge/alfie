@@ -2,14 +2,15 @@
 #import os 
 
 import os
+import types
 import pytest
 
-from alfie.seqio import file_type, outfile_dict, read_fasta, read_fastq
+from alfie.seqio import file_type, outfile_dict
+from alfie.seqio import read_fasta, read_fastq
+from alfie.seqio import iter_read_fasta, iter_read_fastq
+
 from alfie import ex_fasta_file, ex_fastq_file
 
-"""
-#TODO - unit tests for write - see if buffer or make and destroy files is best practice
-"""
 
 def test_file_type():
 	"""Test that the file type is properly identified."""
@@ -77,4 +78,27 @@ def test_fastq_reader():
 	assert fastq_read[0]['sequence'][:25] == "ttctaggagcatgtatatctatgct"
 	assert fastq_read[1]['sequence'][:25] == "acgggcttatcatggtatttggtgc"
 	assert fastq_read[2]['sequence'][:25] == "agtattaattcgtatggaattagca"
+
+
+def test_iter_fasta_reader():
+
+	# read in the data
+	data = iter_read_fasta(ex_fasta_file, batch = 10)
+	
+	assert type(data) == types.GeneratorType
+
+	for d in data:
+		assert len(d) == 10
+		assert list(d[0].keys()) == ['name', 'sequence']
+
+
+def test_iter_fastq_reader():
+
+	data = iter_read_fastq(ex_fastq_file, batch = 10)
+
+	assert type(data) == types.GeneratorType
+
+	for d in data:
+		assert len(d) == 10
+		assert list(d[0].keys()) == ['name', 'sequence', 'strand', 'quality']
 

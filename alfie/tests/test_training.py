@@ -1,11 +1,9 @@
 """Unit tests for the module: alfie.training """
-
 import pytest
-import alfie.training as training
 import numpy as np
 import pandas as pd
 
-#NOTE : I'm trying this in pytest as opposed to the unittest module, will see how it goes.
+import alfie.training as training
 
 def test_split():
 	"""Tests for the stratified_taxon_split function."""

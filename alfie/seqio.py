@@ -203,7 +203,7 @@ def iter_read_fasta(filename, batch = 1000):
 	# data is a generator, get the next batch
 	>>> x = next(data)
 	# each record in the list is a dictionary
-	>>> x[0]
+	>>> x[0].keys()
 	dict_keys(['name', 'sequence'])
 	"""
 	seq_records = []
@@ -304,11 +304,11 @@ def iter_read_fastq(filename, batch = 1000):
 	# load the path to the alfie example file
 	>>> from alfie import ex_fastq_file
 
-	>>> data = iter_read_fasta(ex_fastq_file, batch = 10)
+	>>> data = iter_read_fastq(ex_fastq_file, batch = 10)
 	#data is a generator, get the next batch
 	>>> x = next(data)
 	#each record in the list is a dictionary
-	>>> x[0]
+	>>> x[0].keys()
 	dict_keys(['name', 'sequence', 'strand', 'quality'])
 	"""
 	records = []
