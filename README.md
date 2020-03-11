@@ -13,17 +13,24 @@ For increased control, alfie can also be deployed as a module from within Python
 
 ## Installation
 
-Alfie is a python3 program that depends on the python packages: `numpy`, `tensorflow`, `scikit-learn`, and `pandas`. If you do not have these installed, it is recommended that you install python and the required packages via [anaconda](https://www.anaconda.com/distribution/).
-
-To install alfie, download and unzip this repository. From the terminal, enter the repository and then run the following command:
+Alfie is a python3 program that can be installed via [pip](https://docs.python.org/3/installing/index.html).
 ```
-python3 setup.py install
+pip install alfie
 ```
 To check that the installation was successful, open a new terminal and run the following command. It should pop up the alfie help menu.
 ```
 alfie -h
 ```
+Or open python and run the following
+```
+from alfie import seqio
+?seqio
+```
 
+To install the most recent (development) version of alfie, download and unzip this repository. From the terminal, enter the repository and then run the following command:
+```
+python3 setup.py install
+```
 
 ## Usage 
 ### Command line interface
