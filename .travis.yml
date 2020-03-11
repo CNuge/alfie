@@ -4,15 +4,18 @@ python:
   - "3.7"
 
 install:
-  - pip install -r requirements.txt
-  - pip install codecov
+  - pip3 install -r requirements.txt
+  - pip3 install codecov
+  - python setup.py install
 
 script:
-  - python setup.py install
   - pytest -p no:warnings
   #- pytest --cov-report xml --cov=alfie tests/ -p no:warnings
   # -p to silence the internal tensorflow warnings
   # try using this: https://pypi.org/project/pytest-cov/
+
+  #or:
+  #- python3 -m pytest -p no:warnings  
 
 after_success:
     - codecov
