@@ -17,7 +17,7 @@ def test_classification_worklow():
 	#make predictions on the decod
 	seq_records, predictions = classify.classify_records(example_fasta)
 	
-	assert seq_records[0].keys() == dict_keys(["name", "sequence", "kmer_data"])
+	assert list(seq_records[0].keys()) == ["name", "sequence", "kmer_data"]
 
 	predictions_actual = classify.decode_predictions(predictions)
 	
