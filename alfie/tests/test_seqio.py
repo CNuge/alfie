@@ -115,6 +115,8 @@ def test_fasta_writer():
 
 	with pytest.raises(ValueError):
 		write_fasta(orignal_fasta_read,"temp_test/outfile_1.txt")
+	
+	with pytest.raises(ValueError):
 		write_fasta(orignal_fasta_read,"temp_test/outfile_1.fq")
 
 	os.mkdir('temp_test/')
@@ -139,6 +141,8 @@ def test_fastq_writer():
 
 	with pytest.raises(ValueError):
 		write_fastq(orignal_fastq_read,"temp_test/outfile_1.txt")
+
+	with pytest.raises(ValueError):
 		write_fastq(orignal_fastq_read,"temp_test/outfile_1.fa")
 
 	os.mkdir('temp_test/')
