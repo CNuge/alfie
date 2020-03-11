@@ -26,7 +26,7 @@ alignment-free classifier, which allows the program to be applied to different D
 
 setup(
 	name = 'alfie',
-	version = '0.1',
+	version = '1.0',
 	author = 'Cam Nugent',
 	author_email = 'nugentc@uoguelph.ca',
 	url = 'https://github.com/CNuge/alfie',

@@ -74,7 +74,7 @@ def file_type(s):
 		return "fastq"
 
 	else:
-		raise ValueError("Input file must be in fasta or fastq format. "+\
+		raise ValueError("File must be in fasta or fastq format. "+\
 			"Accepted file extensions: fa, fq, fasta, or fastq.")
 
 
@@ -236,8 +236,11 @@ def iter_read_fasta(filename, batch = 1000):
 def process_fastq_record(lines):
 	""" Create a dictionary from a list of the four lines of a fastq record."""
 	ks = ['name', 'sequence', 'strand', 'quality']
-	return {k: v for k, v in zip(ks, lines)}
-
+	
+	record =  {k: v for k, v in zip(ks, lines)}
+	record['name'] = record['name'][1:] #drop the leading @
+	
+	return record
 
 def read_fastq(filename):
 	""" 

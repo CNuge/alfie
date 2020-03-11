@@ -5,7 +5,9 @@ import pytest
 from alfie.seqio import file_type, outfile_dict
 from alfie.seqio import read_fasta, read_fastq
 from alfie.seqio import iter_read_fasta, iter_read_fastq
+from alfie.seqio import write_fasta, write_fastq
 
+from alfie import example_fasta, example_fastq
 from alfie import ex_fasta_file, ex_fastq_file
 
 
@@ -72,6 +74,10 @@ def test_fastq_reader():
 	for i in range(len(fastq_read)):
 		assert list(fastq_read[i].keys()) == ['name', 'sequence', 'strand', 'quality']
 
+	assert fastq_read[0]['name'] == "seq1_plantae"
+	assert fastq_read[1]['name'] ==	"seq2_bacteria"
+	assert fastq_read[2]['name'] == "seq3_protista"
+
 	assert fastq_read[0]['sequence'][:25] == "ttctaggagcatgtatatctatgct"
 	assert fastq_read[1]['sequence'][:25] == "acgggcttatcatggtatttggtgc"
 	assert fastq_read[2]['sequence'][:25] == "agtattaattcgtatggaattagca"
@@ -99,3 +105,52 @@ def test_iter_fastq_reader():
 		assert len(d) == 10
 		assert list(d[0].keys()) == ['name', 'sequence', 'strand', 'quality']
 
+
+def test_fasta_writer():
+
+	orignal_fasta_read = read_fasta(ex_fasta_file)
+
+	with pytest.raises(TypeError):
+		write_fasta(orignal_fasta_read) #missing an argument
+
+	with pytest.raises(ValueError):
+		write_fasta(orignal_fasta_read,"temp_test/outfile_1.txt")
+		write_fasta(orignal_fasta_read,"temp_test/outfile_1.fq")
+
+	os.mkdir('temp_test/')
+
+	write_fasta(orignal_fasta_read,'temp_test/test_example_out.fa')
+
+	re_read_fa1 = read_fasta('temp_test/test_example_out.fa')
+	
+	assert list(re_read_fa1[0].keys()) == ['name', 'sequence']
+	assert re_read_fa1[0]['name'] == 'seq1_plantae'
+	assert re_read_fa1 == orignal_fasta_read
+
+	os.remove('temp_test/test_example_out.fa')
+	os.rmdir("temp_test/")
+
+def test_fastq_writer():
+
+	orignal_fastq_read = read_fastq(ex_fastq_file)
+
+	with pytest.raises(TypeError):
+		write_fastq(orignal_fastq_read) #missing an argument
+
+	with pytest.raises(ValueError):
+		write_fastq(orignal_fastq_read,"temp_test/outfile_1.txt")
+		write_fastq(orignal_fastq_read,"temp_test/outfile_1.fa")
+
+	os.mkdir('temp_test/')
+
+	write_fastq(orignal_fastq_read,'temp_test/test_example_out.fq')
+
+	re_read_fq1 = read_fastq('temp_test/test_example_out.fq')
+	orignal_fastq_read = read_fastq(ex_fastq_file)
+
+	assert list(re_read_fq1[0].keys()) == ['name', 'sequence', 'strand', 'quality']
+	assert re_read_fq1[0]['name'] == 'seq1_plantae'
+	assert re_read_fq1 == orignal_fastq_read
+
+	os.remove('temp_test/test_example_out.fq')
+	os.rmdir("temp_test/")
