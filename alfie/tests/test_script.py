@@ -24,11 +24,3 @@ def test_argparser():
 	assert out2.classes == 'kingdoms'
 
 
-def test_cli_script():
-	""" pass different argument sets to the main function and test behavior."""
-
-	#error if no file specified
-	with pytest.raises(ValueError):
-		alf.main()
-
-	#need to do a setup?

@@ -1,6 +1,3 @@
-
-#import os 
-
 import os
 import types
 import pytest
@@ -50,6 +47,7 @@ def test_outfile_builder():
 
 	os.rmdir("alfie_out")
 	os.rmdir("diff_place")
+
 
 def test_fasta_reader():
 	""" Test the fasta reader functions."""
