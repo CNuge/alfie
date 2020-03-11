@@ -49,7 +49,7 @@ class KmerFeatures:
 	Examples
 	---------
 	#initiate a class instance
-	#by kmer counts are generated on initialization, by default for k = 4.
+	#by default kmer counts are generated on initialization for k = 4.
 	>>> ex_inst = KmerFeatures(name = 'ID1', sequence = 'AAATTTGGGATGGGCCCCACAC')
 
 	# numpy array with the kmer labels

@@ -23,8 +23,8 @@ alfie -h
 ```
 Or open python and run the following
 ```
-from alfie import seqio
-?seqio
+from alfie import seqio #import the seqio module
+?seqio					#check you can see the help menu
 ```
 
 To install the most recent (development) version of alfie, download and unzip this repository. From the terminal, enter the repository and then run the following command:
