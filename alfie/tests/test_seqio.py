@@ -25,7 +25,8 @@ def test_file_type():
 		file_type("in.file_2.csv")
 
 
-def test_outfile_builder():
+#the tmpdir avoids making a directory
+def test_outfile_builder(tmpdir):
 	"""Test that the output file set is generated properly."""
 	expected_kingdom_dict1 = {0: 'alfie_out/animalia_test.fasta',
 						 1: 'alfie_out/bacteria_test.fasta',
@@ -44,9 +45,6 @@ def test_outfile_builder():
 
 	out2 = outfile_dict("in_data/test.fastq", folder_prefix = 'diff_place/') 
 	assert out2 == expected_kingdom_dict2
-
-	os.rmdir("alfie_out")
-	os.rmdir("diff_place")
 
 
 def test_fasta_reader():
