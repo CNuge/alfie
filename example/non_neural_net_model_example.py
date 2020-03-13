@@ -22,7 +22,6 @@ from sklearn.preprocessing import LabelBinarizer
 #####
 data = pd.read_csv('alfie_small_train_example.tsv', sep = '\t')
 
-
 #####
 # conduct the train test split
 #####
@@ -56,7 +55,7 @@ y_test = np.reshape(y_test, len(y_test))
 # train a demo SVM model
 #####
 
-svm_params = {'C': 100.0, 'loss': 'squared_hinge', 'max_iter' : 10000}
+svm_params = {'C': 100.0, 'loss': 'squared_hinge', 'max_iter': 10000}
 
 svm_ann_demo = LinearSVC(**svm_params) 
 svm_ann_demo.fit(X_train, y_train) 
