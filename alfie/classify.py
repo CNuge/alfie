@@ -16,7 +16,7 @@ from alfie import dnn_k_four
 from alfie.kmerseq import KmerFeatures
 
 
-def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
+def classify_records(seq_records, model = dnn_k_four, k = 4, argmax = True):
 	"""
 	Classify a series of DNA sequence records with the designated neural network.
 
@@ -31,12 +31,20 @@ def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
 		dictionary with the keys 'name' (identifying string - header line) and 
 		'sequence' (the sequence line of the fasta entry). Other keys permitted but unused
 
-	dnn_model : tensorflow_model, A sequential tensorflow neural network. By default the interna
-		kingdom-level classifier model is used. A user may specify a custom model, if the custom
-		model utilizes a different kmer feature size, the k parameter must be altered accordingly. 
+	model : tensorflow_model or scikit learn model. By default the internal
+		kingdom-level classifier model is used. A user may specify a custom model, 
+		either a sequential tensorflow neural network or a scikit learn model (such as
+		a random forest or support vector machine).
+		If the custom model utilizes a different kmer feature size, the k parameter 
+		must be altered accordingly. 
 
 	k : int, the kmer input feature sizes corresponding to the dnn_model being uses. The
 		features generated for each record will be kmer frequencies for size k.
+
+	argmax : bool, logical indicating if one-hot encoded model predictions should be 
+		returned as numeric encodings (index of x axis maxima for each row). Default is
+		true. Note for models that return numeric encodings (such as sklearn's LinearSVC)
+		the argmax value must be set to False, otherwise an error will result.
 
 	Returns
 	---------
@@ -68,10 +76,13 @@ def classify_records(seq_records, dnn_model = dnn_k_four, k = 4):
 
 	vals = np.array([seq_records[i]['kmer_data'].kmer_freqs for i in range(len(seq_records))])
 	
-	yht_out = dnn_model.predict(vals)
+	yht_out = model.predict(vals)
 
-	predictions = np.argmax(yht_out, axis = 1)
-
+	if argmax == True:
+		predictions = np.argmax(yht_out, axis = 1)
+	else:
+		predictions = yht_out
+		
 	return seq_records, predictions
 
 

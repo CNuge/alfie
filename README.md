@@ -48,12 +48,12 @@ alfie -f alfie/data/example_data.fasta
 
 ```
 
-For very large files (order of millions), the input sequence file may need to be processed in a batch fashion. This will run more slowly, but less sequences will be held in memory at once. The batch size (number of sequences) is specified with the `-b` flag. This flag isn't required, and should be used only if the program is crashing (finding the optimal value for your own machine will require some trial and error).
+For very large files (order of millions), the input sequence file may need to be processed in a batch fashion. This will run more slowly, but less sequences will be held in memory at once. The batch size (number of sequences) is specified with the `-b` flag. This flag isn't required, and should be used only if the program is crashing (finding the optimal value for your own machine will require some trial and error, try values on the order of thousands or tens of thousands).
 ```
 alfie -f alfie/data/example_data.fastq -b 100
 ```
 
-By default, alignment free classification is performed using the default feature set (4mer frequencies) and the corresponding pre-trained neural network (trained on `COI-5P` sequence fragments of varying lengths). A user can pass an alternative neural network to make predictions with by using the `-m` flag. If this option is exercised and the model has not been trained on 4mers, then the `-k` flag must be used to ensure the proper set of kmer features are generated to match the neural network input structure (see the [example notebook](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb) for more info on making and using custom neural networks with alfie).
+By default, alignment free classification is performed using the default feature set (4mer frequencies) and the corresponding pre-trained neural network (trained on `COI-5P` sequence fragments of varying lengths). A user can pass an alternative neural network to make predictions using the `-m` flag. If this option is exercised and the model has not been trained on 4mers, then the `-k` flag must be used to ensure the proper set of kmer features are generated to match the neural network input structure (see the [example notebook](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb) for more info on making and using custom neural networks with alfie).
 
 ```
 #example using the 6mer model that ships with alfie, note the -k 6 option is required

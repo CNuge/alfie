@@ -301,7 +301,7 @@ def shuffle_unison(x, y, seed = None):
 	return x[p], y[p]
 
 
-def alfie_dnn_default(hidden_sizes = [100], dropout = 0.2,
+def alfie_dnn_default(hidden_sizes = [100], dropout = 0.3,
 						in_shape = 256, n_classes = 5):
 	"""
 	Construct a neural network for alignment-free classification.
@@ -310,7 +310,8 @@ def alfie_dnn_default(hidden_sizes = [100], dropout = 0.2,
 	---------
 	hidden_sizes - neuron sizes for the hidden layers
 				n_hidden is implict param - equal to the length of hidden layers list
-	dropout : float, dropout applied after each hidden layer, for no dropout pass 0 
+	dropout : float, fraction of dropout applied after each hidden layer, for no dropout pass 0.
+		Default is 0.3. 
 	in_shape : int, the number of predictor variables, assumes 1d inputs. 
 		Default is 256 (4mer size).
 	n_classes - int, the number of output classes. Default is 5 (kingdoms).
