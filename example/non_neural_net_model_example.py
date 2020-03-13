@@ -68,7 +68,6 @@ svm_ann_demo.fit(X_train, y_train)
 #new list of dictionaries
 test_simulated_fasta = []
 
-#only doing first 10 rows
 for i in range(0, len(y_test)):
     x = test.iloc[i]
     #make new dictionary entry for the sequence
