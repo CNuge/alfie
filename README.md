@@ -8,7 +8,7 @@ Alfie is an alignment-free, kingdom level taxonomic classifier for DNA barcode d
 
 Alfie can be deployed from the command line for rapid file-to-file classification of sequences. This is an effective means of separating contaminant sequences in a DNA metabarcoding or environmental DNA data set from sequences of interest. 
 
-For increased control, alfie can also be deployed as a module from within Python. The alfie package also contains functions that can aid a user in the training and application of a custom alignment-free classifier, which allows the program to be applied to different DNA barcodes (or genes), as a binary classifier, or on different taxonomic levels. 
+For increased control, alfie can also be deployed as a module from within Python. The alfie package also contains functions that can [aid a user in the training and application of a custom alignment-free classifier](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb), which allows the program to be applied to different DNA barcodes (or genes), as a binary classifier, or on different taxonomic levels. 
 
 
 ## Installation
@@ -53,7 +53,7 @@ For very large files (order of millions), the input sequence file may need to be
 alfie -f alfie/data/example_data.fastq -b 100
 ```
 
-By default, alignment free classification is performed using the default feature set (4mer frequencies) and the corresponding pre-trained neural network (trained on `COI-5P` sequence fragments of varying lengths). A user can pass an alternative neural network to make predictions using the `-m` flag. If this option is exercised and the model has not been trained on 4mers, then the `-k` flag must be used to ensure the proper set of kmer features are generated to match the neural network input structure (see the [example notebook](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb) for more info on making and using custom neural networks with alfie).
+By default, alignment free classification is performed using the default feature set (4mer frequencies) and the corresponding pre-trained neural network (trained on `COI-5P` sequence fragments of varying lengths). A user can pass an alternative machine learning model (neural network or other algorithms permitted) to make predictions using the `-m` flag. If this option is exercised and the model has not been trained on 4mers, then the `-k` flag must be used to ensure the proper set of kmer features are generated to match the neural network input structure (see the [example notebook](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb) for more info on making and using custom neural networks with alfie).
 
 ```
 #example using the 6mer model that ships with alfie, note the -k 6 option is required

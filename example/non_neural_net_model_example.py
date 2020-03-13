@@ -3,9 +3,8 @@ alfie can be used with non-neural network models as well.
 
 Here this is demonstrated by training a support vector machine 
 on the same set of data used in the example jupyter notebook (part 2),
-
+and then simulating deployment on a new dataset
 """
-
 import numpy as np
 import pandas as pd
 
@@ -23,7 +22,7 @@ from sklearn.preprocessing import LabelBinarizer
 data = pd.read_csv('alfie_small_train_example.tsv', sep = '\t')
 
 #####
-# conduct the train test split
+# conduct the train test split with alfie
 #####
 train, test = stratified_taxon_split(data, class_col = 'class', test_size = 0.3, )
 
@@ -46,15 +45,14 @@ tax_encoder = LabelBinarizer()
 y_train = tax_encoder.fit_transform(y_train_raw)
 y_test = tax_encoder.transform(y_test_raw)
 
-
+#this reshape interfaces with the LinerSVC input shape requirements
 y_train = np.reshape(y_train, len(y_train))
 y_test = np.reshape(y_test, len(y_test))
 
 
 #####
-# train a demo SVM model
+# train a custom SVM model
 #####
-
 svm_params = {'C': 100.0, 'loss': 'squared_hinge', 'max_iter': 10000}
 
 svm_ann_demo = LinearSVC(**svm_params) 
@@ -64,7 +62,6 @@ svm_ann_demo.fit(X_train, y_train)
 #####
 # generate simulated fasta input from the test data
 #####
-
 #new list of dictionaries
 test_simulated_fasta = []
 
@@ -81,10 +78,11 @@ test_simulated_fasta[0]
 
 
 #####
-# use the model to make predictions via the classify records function
+# deploy the custom model making predictions via aflie's classify_records function
 #####
+#note the kmer data are generated and predictions made all in the one function call.
 
-# note the parameter argmax = False, this is passed because the LinearSVC already
+# note the parameter argmax = False is passed because the LinearSVC already
 # outputs non-one hot encoded outputs.
 test_out, test_predictions = classify_records(test_simulated_fasta, 
 												model = svm_ann_demo, argmax = False)
