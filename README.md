@@ -15,7 +15,7 @@ For increased control, alfie can also be deployed as a module from within Python
 
 ## Installation
 
-Alfie is a python3 program that can be installed via [pip](https://docs.python.org/3/installing/index.html).
+Alfie is a python3 program that can be installed via [pip](https://docs.python.org/3/installing/index.html). Please note that for Windows users the 64-bit version of Python is required. This is because Alfie utilizes Tensorflow, which is not available for 32-bit Python. 
 ```
 pip install alfie
 ```
