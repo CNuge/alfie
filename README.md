@@ -1,7 +1,7 @@
 # alfie <img src="alfie/data/alfie.jpeg" height="140" align="right" alt="Alfie"/>
 ## alignment free identification of eDNA
 [![Build Status](https://travis-ci.com/CNuge/alfie.svg?branch=master)](https://travis-ci.com/CNuge/alfie)
-[![DOI](https://doi.org/10.3897/mbmg.4.55815)](https://doi.org/10.3897/mbmg.4.55815)
+[![Generic badge](https://img.shields.io/badge/DOI-https:%2F%2Fdoi.org%2F10.3897%2Fmbmg.4.55815-brightgreen.svg)](https://doi.org/10.3897/mbmg.4.55815)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![codecov](https://codecov.io/gh/CNuge/alfie/branch/master/graph/badge.svg)](https://codecov.io/gh/CNuge/alfie)
 [![PyPI version](https://badge.fury.io/py/alfie.svg)](https://badge.fury.io/py/alfie)
