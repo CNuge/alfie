@@ -1,6 +1,7 @@
 # alfie <img src="alfie/data/alfie.jpeg" height="140" align="right" alt="Alfie"/>
 ## alignment free identification of eDNA
 [![Build Status](https://travis-ci.com/CNuge/alfie.svg?branch=master)](https://travis-ci.com/CNuge/alfie)
+[![DOI](https://doi.org/10.3897/mbmg.4.55815)](https://doi.org/10.3897/mbmg.4.55815)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![codecov](https://codecov.io/gh/CNuge/alfie/branch/master/graph/badge.svg)](https://codecov.io/gh/CNuge/alfie)
 [![PyPI version](https://badge.fury.io/py/alfie.svg)](https://badge.fury.io/py/alfie)
@@ -107,6 +108,11 @@ kingdom_labels[:5]
 ### Advanced application and custom neural network construction
 
 For a more detailed demonstration of the alfie package's functionality please [consult the jupyter notebook included with this repository](https://github.com/CNuge/alfie/blob/master/example/custom_alfie_demo.ipynb). The notebook covers sequence input/output and kingdom-level classification in more detail, and also provides examples of how to train and deploy a custom, alignment-free classifier with alfie. Custom classifiers can be implemented for any taxonomic level or DNA barcode - you can bring your own training data or subset a taxonomic group of interest from [the dataset used to train alfie](https://github.com/CNuge/data-alfie). All the functions demonstrated above can also be applied in a generic fashion to efficiently conduct custom classification.
+
+### Citation
+
+Nugent CM, Adamowicz SJ (2020) Alignment-free classification of COI DNA barcode data with the Python package Alfie. Metabarcoding and Metagenomics 4: e55815. https://doi.org/10.3897/mbmg.4.55815
+
 
 ### Acknowledgements
 
